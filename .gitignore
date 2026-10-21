@@ -1,0 +1,17 @@
+# Local files and build outputs
+.DS_Store
+.build/
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+.env
+.env.*
+*.key
+*.key.txt
+*.p8
+*.p12
+*.jks
+*.keystore
+keystore.properties
+local.properties
