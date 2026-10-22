@@ -113,7 +113,7 @@ Los nombres `clienId`, `documenTypes` y `SUCCES` se conservan por compatibilidad
 | `nationalIdType`, `nationalIdTypeChoices`, `documentNumber` | Vacíos | Datos opcionales del documento precargados. |
 | `themeMode` | `.system` | `.light`, `.dark` o `.system`. |
 
-La SDK presenta los pasos, colores, logo, diseño y textos asignados al contrato. `BDIVConfig` no admite ajustes de diseño. Para cambiar frases específicas, usa el archivo `Localizable.strings` de la app; consulta la [guía de localización](LOCALIZACION.md).
+La SDK aplica automáticamente los pasos, colores, logo, diseño y textos asignados al contrato. `BDIVConfig` no admite ajustes de diseño. La integración habitual no requiere copiar archivos de traducción. Los overrides de la app son opcionales y se limitan a las claves compatibles; consulta la [guía de idioma y textos locales opcionales](LOCALIZACION.md).
 
 La animación de carga inicial permanece visible hasta que el flujo y su presentación estén listos. Al inicio usa el recurso `AccentColor` o el color de énfasis heredado de la app y un mensaje de carga localizado. El primer paso visible ya muestra la apariencia configurada. Los errores de inicialización se entregan mediante el callback de error existente.
 
@@ -134,7 +134,7 @@ Consulta únicamente el objeto que corresponda al flujo. Los errores y la cancel
 ## Guías de integración
 
 - [Manejo de errores](ERRORES.md)
-- [Localización y personalización de textos](LOCALIZACION.md) y [plantilla de recursos](Localizable.strings)
+- [Idioma y textos locales opcionales](LOCALIZACION.md)
 - [Registros de diagnóstico](LOGGING.md)
 - [Protección contra capturas de pantalla](SCREEN_CAPTURE_CONFIGURATION.md)
 - [Eventos en segundo plano](CARGAS_SEGUNDO_PLANO.md)
