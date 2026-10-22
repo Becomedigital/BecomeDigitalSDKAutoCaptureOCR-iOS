@@ -1,6 +1,6 @@
-# Background events — iOS
+# Eventos en segundo plano — iOS
 
-If the host app supports continuing verification in the background, forward system events from `AppDelegate`:
+Si la app admite continuar una verificación en segundo plano, reenvía los eventos del sistema desde `AppDelegate`:
 
 ```swift
 import UIKit
@@ -15,9 +15,9 @@ func application(_ application: UIApplication,
         return
     }
 
-    // Forward the event to another host component if it owns the session.
+    // Reenvía el evento al componente de la app que tenga a cargo la sesión.
     completionHandler()
 }
 ```
 
-In a SwiftUI application, register `AppDelegate` using `@UIApplicationDelegateAdaptor`. iOS determines when background work may continue. Test the host's lifecycle behavior on a physical device before release.
+En una app SwiftUI, registra `AppDelegate` mediante `@UIApplicationDelegateAdaptor`. iOS determina cuándo puede continuar el trabajo en segundo plano. Prueba el comportamiento de la app durante los cambios de estado en un dispositivo físico antes de publicarla.

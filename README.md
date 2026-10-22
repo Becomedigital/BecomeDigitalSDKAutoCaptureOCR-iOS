@@ -1,62 +1,62 @@
-# BecomeDigital SDK AutoCapture OCR — iOS
+# SDK de BecomeDigital AutoCapture OCR para iOS
 
-Native identity verification with automatic document capture, OCR-assisted recognition, a manual capture fallback, and facial verification. This repository distributes `BDIdentityVerification.xcframework` and integration documentation for client applications.
+Verificación de identidad nativa con captura automática de documentos, reconocimiento mediante OCR, alternativa de captura manual y validación facial. Este repositorio distribuye `BDIdentityVerification.xcframework` y la documentación de integración para las aplicaciones cliente.
 
-## Features
+## Funcionalidades
 
-- Onboarding and authentication with typed results.
-- Automatic document scanning with framing, image-quality feedback, and front/back guidance.
-- Manual capture after 30 seconds by default when automatic scanning has not completed, with document recognition and retry support.
-- SwiftUI screens, searchable country selection, and contract-assigned branding and text.
-- Host-selected light, dark, or system appearance and optional screen-capture protection.
+- Onboarding y autenticación con respuestas tipadas.
+- Captura automática con guía de encuadre, indicaciones de calidad de imagen e instrucciones para frente y reverso.
+- Captura manual disponible después de 30 segundos de forma predeterminada si la captura automática no termina, con reconocimiento del documento y opción de volver a intentar.
+- Pantallas SwiftUI, selección de país con búsqueda, identidad visual y textos asignados al contrato.
+- Modo claro, oscuro o del sistema elegido por la app, y protección opcional contra capturas de pantalla.
 
-## Requirements and dependencies
+## Requisitos y dependencias
 
-| Component | Required version |
+| Componente | Versión requerida |
 | --- | --- |
-| iOS | 16.0 or later |
-| Become SDK framework version | 1.2.3 |
+| iOS | 16.0 o posterior |
+| Framework de la SDK de Become | 1.2.3 |
 | Amplify Swift | 2.53.3 |
 | Amplify UI Swift Liveness | 1.4.4 |
-| BlinkID iOS package | 8002.0.2 |
-| Xcode toolchain | Swift 6 compatible |
+| Paquete BlinkID para iOS | 8002.0.2 |
+| Herramientas de compilación de Xcode | Compatibles con Swift 6 |
 
-The XCFramework includes iOS device arm64 and iOS Simulator arm64/x86_64 slices. It is a binary distribution; adding this repository as a Swift package is not supported.
+El XCFramework incluye las variantes arm64 para dispositivos iOS y arm64/x86_64 para el simulador. La distribución es binaria; este repositorio no se agrega directamente como paquete Swift.
 
-## Installation
+## Instalación
 
-1. Download or clone this repository and add `BDIdentityVerification.xcframework` to the application target.
-2. In **Frameworks, Libraries, and Embedded Content**, select **Embed & Sign**.
-3. Add these packages with **Exact Version** in Xcode:
+1. Descarga o clona este repositorio y agrega `BDIdentityVerification.xcframework` al target de la aplicación.
+2. En **Frameworks, Libraries, and Embedded Content**, selecciona **Embed & Sign** para integrarlo y firmarlo.
+3. Agrega estos paquetes en Xcode con la opción **Exact Version**:
 
-| Package URL | Version |
+| URL del paquete | Versión |
 | --- | --- |
 | `https://github.com/aws-amplify/amplify-swift` | 2.53.3 |
 | `https://github.com/aws-amplify/amplify-ui-swift-liveness` | 1.4.4 |
 | `https://github.com/microblink/blinkid-ios` | 8002.0.2 |
 
-Add the required Amplify and Face Liveness products to the application target. Add the **BlinkIDUX** product; its package also supplies the **BlinkID** binary dependency. Verify the final application's `Frameworks` directory contains **BDIdentityVerification.framework**, **BlinkID.framework**, and **BlinkIDUX.framework**, embedded and signed.
+Agrega al target los productos requeridos de Amplify y Face Liveness. Agrega el producto **BlinkIDUX**; su paquete también incluye la dependencia binaria **BlinkID**. Verifica que el directorio `Frameworks` de la app compilada contenga **BDIdentityVerification.framework**, **BlinkID.framework** y **BlinkIDUX.framework**, integrados y firmados.
 
-When upgrading from the earlier Capture integration, remove its Capture Core/UX package references and embedded frameworks. The Swift module remains `BDIdentityVerification`; the repository name does not change the public API.
+Si vienes de la integración anterior de Capture, elimina sus referencias a los paquetes Capture Core/UX y sus frameworks integrados. El módulo Swift sigue siendo `BDIdentityVerification`; el nombre del repositorio no cambia la API pública.
 
-### Application license
+### Licencia de la aplicación
 
-Obtain a BlinkID Core license from BecomeDigital for the application's **Bundle Identifier**. Add it as `com.become.blinkid.key.txt` to the app target and **Copy Bundle Resources**. License contents and application credentials are not included in this repository. A different Bundle Identifier, including a development variant, requires a matching license.
+Solicita a BecomeDigital una licencia BlinkID Core para el **Bundle Identifier** de tu app. Agrega el archivo `com.become.blinkid.key.txt` al target y a **Copy Bundle Resources**. Este repositorio no incluye el contenido de las licencias ni las credenciales de las aplicaciones. Un Bundle Identifier diferente, incluido el de una variante de desarrollo, requiere su propia licencia.
 
-### Permissions
+### Permisos
 
-Add the camera usage description to the application's `Info.plist`:
+Agrega la descripción de uso de la cámara al `Info.plist` de la app:
 
 ```xml
 <key>NSCameraUsageDescription</key>
-<string>Camera access is required to verify your identity.</string>
+<string>Necesitamos acceso a la cámara para verificar tu identidad.</string>
 ```
 
-If the application uses location, also provide `NSLocationWhenInUseUsageDescription`.
+Si la app usa ubicación, agrega también `NSLocationWhenInUseUsageDescription`.
 
-## Start verification
+## Iniciar la verificación
 
-The delegate must be a `UIViewController` implementing `BDIVDelegate`. Retain the SDK instance throughout the flow.
+El delegado debe ser un `UIViewController` que implemente `BDIVDelegate`. Conserva la instancia de la SDK durante todo el flujo.
 
 ```swift
 import UIKit
@@ -67,11 +67,11 @@ final class VerificationViewController: UIViewController, BDIVDelegate {
 
     func startOnboarding() {
         let config = BDIVConfig(
-            clienId: "YOUR_CLIENT_ID",
-            clientSecret: "YOUR_CLIENT_SECRET",
-            contractId: "YOUR_CONTRACT_ID",
+            clienId: "TU_CLIENT_ID",
+            clientSecret: "TU_CLIENT_SECRET",
+            contractId: "TU_CONTRACT_ID",
             documenTypes: [.DNI, .PASSPORT],
-            userId: "YOUR_USER_ID",
+            userId: "TU_USER_ID",
             flow: .Onboarding,
             themeMode: .system
         )
@@ -84,60 +84,60 @@ final class VerificationViewController: UIViewController, BDIVDelegate {
         if let started = bdivResult.onboarding { _ = started.userId }
         if let completed = bdivResult.verification { _ = completed.urlGetData }
         if let authentication = bdivResult.authentication {
-            // Evaluate the authentication decision separately from callback success.
+            // Evalúa el resultado de autenticación por separado del estado del callback.
             _ = authentication.result
         }
     }
 
     func BDIVResponseError(error: String) {
-        // Restore the host UI and offer a user-initiated restart.
+        // Restaura la interfaz de la app y permite que el usuario inicie un nuevo intento.
     }
 }
 ```
 
-The existing spellings `clienId`, `documenTypes`, and `SUCCES` are retained for compatibility. For authentication, use `flow: .Authentication`; `documenTypes: []` is supported when document capture is not required.
+Los nombres `clienId`, `documenTypes` y `SUCCES` se conservan por compatibilidad. Para autenticación usa `flow: .Authentication`; puedes usar `documenTypes: []` cuando no se requiera capturar documentos.
 
-## Public configuration
+## Configuración pública
 
-| Parameter | Default | Purpose |
+| Parámetro | Valor predeterminado | Uso |
 | --- | --- | --- |
-| `clienId`, `clientSecret`, `contractId`, `userId` | Required | Identify the client, contract, and user. |
-| `documenTypes` | Required for onboarding | `.DNI`, `.PASSPORT`, `.DRIVERLICENSE`; authentication may use `[]`. |
-| `flow` | `.Onboarding` | `.Onboarding` or `.Authentication`. |
-| `performVerificationCheck` | `true` | Wait for the final onboarding result. |
-| `pollingMaxAttempts` | `0` | Maximum result checks; `0` has no attempt limit. |
-| `pollingTimeout` | 2 seconds | Timeout for each result check, not for the whole flow. |
-| `debugLogsEnabled` | `false` | Opt in to diagnostic logs during an investigation. |
-| `preventScreenCapture` | `false` | Enable SDK screen-capture protection. |
-| `country`, `state` | `nil` | Prefilled two-letter country code and US state, when applicable. |
-| `nationalIdType`, `nationalIdTypeChoices`, `documentNumber` | Empty | Optional prefilled document details. |
-| `themeMode` | `.system` | `.light`, `.dark`, or `.system`. |
+| `clienId`, `clientSecret`, `contractId`, `userId` | Requeridos | Identifican al cliente, el contrato y el usuario. |
+| `documenTypes` | Requerido en onboarding | `.DNI`, `.PASSPORT`, `.DRIVERLICENSE`; en autenticación puede usarse `[]`. |
+| `flow` | `.Onboarding` | `.Onboarding` o `.Authentication`. |
+| `performVerificationCheck` | `true` | Espera el resultado final de onboarding. |
+| `pollingMaxAttempts` | `0` | Máximo de consultas del resultado; `0` no limita los intentos. |
+| `pollingTimeout` | 2 segundos | Tiempo máximo de cada consulta del resultado, no de todo el flujo. |
+| `debugLogsEnabled` | `false` | Habilita registros de diagnóstico durante una revisión. |
+| `preventScreenCapture` | `false` | Habilita la protección de las pantallas de la SDK contra capturas. |
+| `country`, `state` | `nil` | Código de país de dos letras y estado de EE. UU. precargados, cuando corresponda. |
+| `nationalIdType`, `nationalIdTypeChoices`, `documentNumber` | Vacíos | Datos opcionales del documento precargados. |
+| `themeMode` | `.system` | `.light`, `.dark` o `.system`. |
 
-The SDK presents the steps, colors, logo, layout, and text assigned to the contract. Design overrides are not part of `BDIVConfig`. Override individual phrases using the host application's `Localizable.strings`; see [localization](LOCALIZACION.md).
+La SDK presenta los pasos, colores, logo, diseño y textos asignados al contrato. `BDIVConfig` no admite ajustes de diseño. Para cambiar frases específicas, usa el archivo `Localizable.strings` de la app; consulta la [guía de localización](LOCALIZACION.md).
 
-The initial animated loader remains visible until the flow and its presentation are ready. It starts with the host application's `AccentColor` or inherited tint and a localized loading message. The first visible step already uses the configured appearance. Initialization failures use the existing error callback.
+La animación de carga inicial permanece visible hasta que el flujo y su presentación estén listos. Al inicio usa el recurso `AccentColor` o el color de énfasis heredado de la app y un mensaje de carga localizado. El primer paso visible ya muestra la apariencia configurada. Los errores de inicialización se entregan mediante el callback de error existente.
 
-If a result check needs more time, pass a larger `pollingTimeout`, for example `30`. This is independent of the manual capture fallback's default 30-second delay.
+Si una consulta del resultado necesita más tiempo, asigna un `pollingTimeout` mayor, por ejemplo `30`. Este valor es independiente de los 30 segundos predeterminados para habilitar la alternativa de captura manual.
 
-## Typed responses
+## Respuestas tipadas
 
-`BDIVResponseSuccess` supplies `BDIdentityVerificationResponse` with `responseStatus`, `message`, and optional result objects:
+`BDIVResponseSuccess` entrega `BDIdentityVerificationResponse`, con `responseStatus`, `message` y objetos de resultado opcionales:
 
-| Object | Public fields | Meaning |
+| Objeto | Campos públicos | Uso |
 | --- | --- | --- |
-| `onboarding` | `code`, `message`, `urlResource`, `userId` | Creation acknowledged when `performVerificationCheck=false`; this is not a final approval. |
-| `verification` | `urlGetData` | Final onboarding result when result checking is enabled. |
-| `authentication` | `company`, `confidence`, `executionId`, `liveness`, `result`, `userId` | Authentication details; evaluate `result` separately. |
+| `onboarding` | `code`, `message`, `urlResource`, `userId` | Confirma el inicio cuando `performVerificationCheck=false`; no representa una aprobación final. |
+| `verification` | `urlGetData` | Resultado final de onboarding cuando está habilitada la consulta del resultado. |
+| `authentication` | `company`, `confidence`, `executionId`, `liveness`, `result`, `userId` | Datos de autenticación; evalúa `result` por separado. |
 
-Unwrap only the result appropriate to the flow. Errors and cancellation use `BDIVResponseError(error:)`; see [error handling](ERRORES.md). Use the concrete result objects instead of dictionary-based response access.
+Consulta únicamente el objeto que corresponda al flujo. Los errores y la cancelación se entregan mediante `BDIVResponseError(error:)`; consulta el [manejo de errores](ERRORES.md). Usa los objetos concretos de resultado en lugar de acceder a un diccionario de respuesta.
 
-## Integration guides
+## Guías de integración
 
-- [Error handling](ERRORES.md)
-- [Localization and text overrides](LOCALIZACION.md) and [resource template](Localizable.strings)
-- [Diagnostic logging](LOGGING.md)
-- [Screen-capture protection](SCREEN_CAPTURE_CONFIGURATION.md)
-- [Background events](CARGAS_SEGUNDO_PLANO.md)
-- [Artifact checksums](CHECKSUMS.sha256)
+- [Manejo de errores](ERRORES.md)
+- [Localización y personalización de textos](LOCALIZACION.md) y [plantilla de recursos](Localizable.strings)
+- [Registros de diagnóstico](LOGGING.md)
+- [Protección contra capturas de pantalla](SCREEN_CAPTURE_CONFIGURATION.md)
+- [Eventos en segundo plano](CARGAS_SEGUNDO_PLANO.md)
+- [Sumas de verificación de los artefactos](CHECKSUMS.sha256)
 
-Before releasing the host app, test automatic/manual document capture, retry, permissions, facial verification, callbacks, and cancellation on a physical device using its licensed application identifier.
+Antes de publicar la app, prueba en un dispositivo físico la captura automática y manual, los reintentos, los permisos, la validación facial, los callbacks y la cancelación. Usa el identificador de aplicación que corresponda a la licencia.

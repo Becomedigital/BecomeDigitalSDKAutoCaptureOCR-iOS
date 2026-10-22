@@ -1,6 +1,6 @@
-# Diagnostic logging — iOS
+# Registros de diagnóstico — iOS
 
-Enable logs when constructing the configuration for an investigation:
+Habilita los registros al crear la configuración para revisar un problema:
 
 ```swift
 let config = BDIVConfig(
@@ -15,6 +15,6 @@ verification = BecomeDigitalSDK(bdivConfig: config, delegate: self)
 verification?.startVerification()
 ```
 
-The default is `false`; disable logging when the investigation ends. In Xcode or Console, include **Debug** messages and filter for `BecomeSDK`.
+El valor predeterminado es `false`; deshabilita los registros al terminar la revisión. En Xcode o Console, incluye mensajes **Debug** y filtra por `BecomeSDK`.
 
-For support, include the SDK version, device, visible step, and relevant `BecomeSDK` lines. Review logs before sharing and exclude credentials, license contents, images, and personal data.
+Para solicitar soporte, incluye la versión de la SDK, el dispositivo, el paso visible y las líneas relevantes de `BecomeSDK`. Revisa los registros antes de compartirlos y excluye credenciales, contenido de licencias, imágenes y datos personales.

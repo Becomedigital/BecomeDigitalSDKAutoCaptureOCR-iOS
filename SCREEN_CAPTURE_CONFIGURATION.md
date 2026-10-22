@@ -1,33 +1,33 @@
-# Screen-capture protection — iOS
+# Protección contra capturas de pantalla — iOS
 
-This guide applies to the XCFramework in this repository. `BDIVConfig.preventScreenCapture` defaults to `false` in Debug and Release. Earlier distributions defaulted to `true`.
+Esta guía corresponde al XCFramework incluido en este repositorio. El parámetro `BDIVConfig.preventScreenCapture` tiene el valor predeterminado `false` en Debug y Release. En distribuciones anteriores, el valor predeterminado era `true`.
 
-| Value | SDK behavior |
+| Valor | Comportamiento de la SDK |
 | --- | --- |
-| `false` (default) | The SDK does not apply its screenshot protection or recording-blocking overlay. |
-| `true` | The SDK protects its screens and displays a blocking overlay while screen recording is detected. |
+| `false` (predeterminado) | La SDK no aplica su protección contra capturas ni la vista de bloqueo por grabación. |
+| `true` | La SDK protege sus pantallas y muestra una vista de bloqueo mientras detecta una grabación. |
 
-The option covers SDK screens; it does not configure the host's other screens or override protections applied independently by iOS or other components.
+La opción cubre las pantallas de la SDK; no configura otras pantallas de la app ni modifica protecciones que iOS u otros componentes apliquen por separado.
 
-## Enable explicitly
+## Habilitar la protección
 
 ```swift
 let config = BDIVConfig(
-    clienId: "YOUR_CLIENT_ID",
-    clientSecret: "YOUR_CLIENT_SECRET",
-    contractId: "YOUR_CONTRACT_ID",
+    clienId: "TU_CLIENT_ID",
+    clientSecret: "TU_CLIENT_SECRET",
+    contractId: "TU_CONTRACT_ID",
     documenTypes: [.DNI, .PASSPORT],
-    userId: "YOUR_USER_ID",
+    userId: "TU_USER_ID",
     preventScreenCapture: true
 )
 let verification = BecomeDigitalSDK(bdivConfig: config, delegate: self)
 verification.startVerification()
 ```
 
-Omit the parameter or pass `false` to allow capture. The value is fixed for a configuration instance; construct a new configuration to change it for a later flow. Both onboarding and authentication support the option.
+Omite el parámetro o usa `false` para permitir capturas. El valor queda fijo en cada instancia de configuración; crea una nueva si necesitas cambiarlo para un flujo posterior. La opción está disponible en onboarding y autenticación.
 
-## Upgrade
+## Actualización
 
-Review calls that previously omitted this parameter. Pass `true` where protection must remain enabled. Explicit `true` or `false` values retain their requested behavior. Rebuild the host app with the framework and dependencies in the [README](README.md).
+Revisa las llamadas que antes omitían el parámetro. Pasa `true` donde deba mantenerse la protección. Los valores explícitos conservan el comportamiento solicitado. Recompila la app con el framework y las dependencias indicadas en el [README](README.md).
 
-On a physical device, verify screenshots and recording during document capture, facial verification, cancellation, and return to the host. Test both settings if the host supports both modes.
+En un dispositivo físico, verifica las capturas y la grabación durante la captura documental, la validación facial, la cancelación y el regreso a la app. Prueba ambos valores si la app admite los dos modos.
