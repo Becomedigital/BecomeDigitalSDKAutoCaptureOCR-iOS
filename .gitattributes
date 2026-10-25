@@ -1,2 +1,2 @@
-# Xcode packages these localization resources as binary property lists.
+# Xcode empaqueta estos recursos de localización como listas de propiedades binarias.
 BDIdentityVerification.xcframework/**/Dictionary.stringsdict binary
