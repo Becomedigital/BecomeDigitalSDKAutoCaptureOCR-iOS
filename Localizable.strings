@@ -1,9 +1,9 @@
 /*
- Localizable.strings — BecomeDigital iOS
- Copia solo las claves necesarias al target de la app. Consulta LOCALIZACION.md.
- Conserva los nombres y marcadores de formato; traduce los valores por idioma.
- Las claves omitidas mantienen el texto configurado o predeterminado.
- Las claves de compatibilidad no personalizan la interfaz del proveedor actual de captura.
+ Referencia opcional de recursos locales. No es un paso de instalación.
+ Los textos habituales se aplican desde el contrato; consulta LOCALIZACION.md.
+ Copia solo overrides intencionales: tienen prioridad y pueden ocultar cambios del contrato.
+ Algunas claves se conservan por compatibilidad y no controlan las pantallas actuales.
+ Conserva nombres y marcadores de formato. Los recursos de componentes tienen su propio alcance.
 */
 
 // Errores de creación y resultados (ver ERRORES.md)

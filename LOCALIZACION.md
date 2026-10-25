@@ -1,47 +1,49 @@
-# Localización y personalización de textos — iOS
+# Idioma y textos locales opcionales — iOS
 
-## Configuración
+## Integración habitual
 
-1. Agrega [Localizable.strings](Localizable.strings) al target de la app o copia solo las claves necesarias en su tabla actual.
-2. Conserva los nombres de las claves y edita únicamente los valores.
-3. Crea las variantes por idioma, por ejemplo `es.lproj/Localizable.strings` y `en.lproj/Localizable.strings`.
-4. Recompila la app. `BDIVConfig` no selecciona una tabla de localización.
+Los textos de las pantallas de Become se aplican automáticamente según el contrato. **No necesitas agregar `Localizable.strings` ni copiar la plantilla para usar la SDK o recibir cambios de textos del contrato.**
 
-Las claves nativas definidas por la app tienen prioridad para esas frases específicas. Las claves que falten conservan el texto asignado al contrato o el valor predeterminado de la SDK. Personaliza cada idioma admitido. Cambiar los recursos de texto no requiere recompilar el binario de la SDK.
+Esta guía se conserva para personalizaciones locales puntuales, mensajes nativos y componentes de captura. La [plantilla de recursos](Localizable.strings) es una referencia de compatibilidad, no un paso de instalación ni un catálogo de todas las frases de las pantallas actuales.
 
-## Claves por pantalla
+## Cuándo usar recursos locales
 
-Una clave compartida cambia todas las pantallas que la usan. Copia los nombres completos de la plantilla; `*` indica un prefijo, no una clave literal.
-
-| Pantalla o uso | Claves |
+| Necesidad | Dónde se define |
 | --- | --- |
-| Introducción | `text_tittle_general_intro`, `text_sub_tittle_general_intro`, `text_selfie_intro_general`, `text_document_intr_general`, `text_start_btn` |
-| Selección de país y documento | `text_tittle_selec_document`, `text_body_country`, `text_select_country`, `text_cancel_close`, `text_dni_selec_document`, `text_license`, `text_passport` |
-| Introducción facial | `text_video_intro` |
-| Captura documental | `text_tittle_intro_doc_front`, `text_btn_introduction_doc` |
-| Vista previa | `text_info_preview`, `text_confirm_preview`, `text_retry_previe` |
-| Carga y envío | `text_loader_init`, `text_loading`, `text_varification_title`, `text_varification_body`, `text_varification_buttom`, `text_info_upload`, `text_info_upload_document`, `text_document_validation` |
-| Consulta del resultado | `text_progress_result`, `text_progress_delay_result`, `text_progress_delay_finish_result` |
-| Error documental y reintento | `text_title_document_error`, `text_sub_title_document_error`, `text_title_button_retry` |
-| Creación y resultados: cierre facial, nueva captura y reintento | Claves `identity_error_*` de la plantilla. |
-| Error general o validación fallida | `text_varification_title_error`, `text_varification_body_error`, `text_varification_title_compliance_error`, `text_varification_body_compliance_error`, `text_error_compliance_not_allowed`, `general_error`, `unknown_error` |
-| Errores de conexión | `timeout_error`, `no_internet_error`, `connection_lost_error` |
-| Permisos y privacidad | `tittle_permisiions_not_aut`, `camera_error_permissions`, `text_screen_recording_not_allowed` |
-| Error facial | `liveness_detection_failed`, `error_low_confidence` |
-| Callback de error de configuración | `text_msn_error_config`, `error_clientid_empty`, `error_client_secret_empty`, `error_contractid_empty`, `error_userid_emty`, `error_vallidationtype_empty` |
-| Resultado final | `text_finish`, `text_sub_tittle_finish`, `terminate_text` |
-| Confirmación de salida | `text_undo`, `text_cancel`, `text_tittle_undo`, `text_sub_tittle_undo`, `cancel_by_user` |
-| Face Liveness: preparación y fotosensibilidad | `amplify_ui_liveness_get_ready_*` |
-| Face Liveness: instrucciones de captura | `amplify_ui_liveness_challenge_*`, `amplify_ui_liveness_face_not_prepared_reason_*`, `amplify_ui_liveness_center_your_face_text` |
-| Face Liveness: permisos y cierre | `amplify_ui_liveness_camera_*`, `amplify_ui_liveness_close_button_a11y` |
+| Textos habituales del recorrido, títulos, instrucciones y acciones de Become | Configuración del contrato, por idioma. |
+| Cambiar deliberadamente una frase de pantalla desde la app | Una entrada compatible en `Localizable.strings` del target de la app. |
+| Mensajes nativos, como la carga inicial o ciertos errores | La clave nativa que consume ese mensaje. |
+| Instrucciones internas de captura documental o del detector facial | Los recursos de localización propios del componente y de su versión. |
 
-## Instrucciones de captura
+Un override local tiene prioridad para esa clave y puede ocultar una actualización posterior del contrato. Si ya copiaste la plantilla completa, elimina de la app las entradas que no quieras mantener como overrides; conserva las que sí necesites.
 
-BlinkID UX incluye sus propias instrucciones de captura localizadas. Las claves `mbic_*` que se conservan en los ejemplos corresponden a la interfaz anterior de Capture y no personalizan BlinkID UX. Para su interfaz de captura, usa los recursos de la versión fijada de BlinkID UX. Las pantallas de introducción, vista previa y error de Become usan las claves indicadas arriba.
+## Precedencia y selección del idioma
 
-## Formato y verificación
+Las claves de pantalla compatibles se resuelven individualmente: **override de la app → texto del contrato para el locale actual → idioma base → español → valor predeterminado de la SDK**. Una clave ausente no reemplaza las demás. La SDK obtiene el locale del entorno iOS; `BDIVConfig` no expone un parámetro para seleccionar idioma ni una tabla de traducciones.
 
-- Conserva el significado de las instrucciones de cámara, accesibilidad y fotosensibilidad.
-- Mantén los marcadores de formato y los saltos de línea intencionales. Conserva `%d%%` para el progreso de carga y `%@` en los mensajes de error facial de la plantilla iOS.
-- No cambies nombres de claves para corregir su escritura ni dupliques entradas de un mismo idioma.
-- Después de recompilar la app, verifica en un dispositivo físico la introducción, captura, reintentos, errores, carga y resultados en cada idioma admitido.
+Para las pantallas actuales se admiten identificadores `namespace.clave`, por ejemplo `intro.title`, `intro.cta`, `atdp.checkboxLabel` o `countrySelection.searchPlaceholder`. Solo afectan a las frases que leen esas claves.
+
+Algunos alias históricos siguen admitidos, como `text_tittle_general_intro` para `intro.title`, y los alias `atdp_` con formato snake case. Otras entradas antiguas de la plantilla pertenecen a pantallas reemplazadas y no controlan las vistas SwiftUI actuales. Usa la clave de pantalla específica cuando esté disponible.
+
+## Ejemplo opcional
+
+Agrega **solo las entradas que quieras fijar desde la app** a su `Localizable.strings`:
+
+```text
+"intro.cta" = "Empezar verificación";
+"countrySelection.searchPlaceholder" = "Buscar país emisor…";
+"text_loader_init" = "Cargando…";
+"identity_error_documentFront" = "Vuelve a capturar el frente completo y enfocado.";
+```
+
+Las dos primeras son claves de pantalla. Las otras son claves nativas para carga y error. Incluye el archivo en el target y crea variantes como `es.lproj/Localizable.strings` o `en.lproj/Localizable.strings` únicamente para los idiomas que personalices. Los cambios locales requieren recompilar la app; no requieren regenerar el XCFramework.
+
+## Componentes nativos
+
+BlinkID UX incluye sus propias instrucciones localizadas y admite las claves compatibles de su versión. Las entradas `mbic_*` de las plantillas corresponden a Capture legacy y no personalizan BlinkID UX.
+
+Amplify Face Liveness consulta sus claves compatibles `amplify_ui_liveness_*` en la app y conserva sus propios valores predeterminados cuando no hay override. Las instrucciones internas del detector y los textos de la pantalla de introducción facial se personalizan de forma independiente; el texto del contrato no se mapea automáticamente a todas las frases internas del componente.
+
+## Verificación
+
+Conserva nombres, mayúsculas y marcadores de formato, como `%d%%` o `%@` cuando existan en la clave original. Las rutas nativas de formato pueden descartar un override incompatible. Prueba los cambios locales en cada idioma y confirma que las claves sin override siguen mostrando el texto del contrato o su valor predeterminado. La validación funcional en dispositivo físico la realiza la app integradora.
