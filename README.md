@@ -113,7 +113,7 @@ Los nombres `clienId`, `documenTypes` y `SUCCES` se conservan por compatibilidad
 | `nationalIdType`, `nationalIdTypeChoices`, `documentNumber` | Vacíos | Datos opcionales del documento precargados. |
 | `themeMode` | `.system` | `.light`, `.dark` o `.system`. |
 
-La SDK aplica automáticamente los pasos, colores, logo, diseño y textos asignados al contrato. `BDIVConfig` no admite ajustes de diseño. La integración habitual no requiere copiar archivos de traducción. Los overrides de la app son opcionales y se limitan a las claves compatibles; consulta la [guía de idioma y textos locales opcionales](LOCALIZACION.md).
+La SDK aplica los pasos, apariencia y textos asignados al contrato. `BDIVConfig` no configura el diseño ni los textos del recorrido. Los archivos locales son opcionales para instrucciones de los componentes nativos y etiquetas técnicas de carga o red; consulta la [guía de textos nativos](LOCALIZACION.md).
 
 La animación de carga inicial permanece visible hasta que el flujo y su presentación estén listos. Al inicio usa el recurso `AccentColor` o el color de énfasis heredado de la app y un mensaje de carga localizado. El primer paso visible ya muestra la apariencia configurada. Los errores de inicialización se entregan mediante el callback de error existente.
 
