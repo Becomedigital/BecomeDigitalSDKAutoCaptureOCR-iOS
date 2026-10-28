@@ -1,2 +1,5 @@
 # Xcode empaqueta estos recursos de localización como listas de propiedades binarias.
 BDIdentityVerification.xcframework/**/Dictionary.stringsdict binary
+
+# Preserve compiled Face Liveness resources without text conversions.
+BDIdentityVerification.xcframework/**/AmplifyUILiveness_FaceLiveness.bundle/** binary

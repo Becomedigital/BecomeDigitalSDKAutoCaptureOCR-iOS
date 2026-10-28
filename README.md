@@ -10,6 +10,8 @@ Verificación de identidad nativa con captura automática de documentos, reconoc
 - Pantallas SwiftUI, selección de país con búsqueda, identidad visual y textos asignados al contrato.
 - Modo claro, oscuro o del sistema elegido por la app, y protección opcional contra capturas de pantalla.
 
+Consulta los [cambios de esta actualización](CHANGELOG.md) y la [guía de diagnóstico](LOGGING.md).
+
 ## Requisitos y dependencias
 
 | Componente | Versión requerida |
