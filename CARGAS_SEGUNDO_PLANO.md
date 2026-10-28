@@ -1,6 +1,6 @@
-# Eventos en segundo plano — iOS
+# Continuidad en segundo plano en iOS
 
-Si la app admite continuar una verificación en segundo plano, reenvía los eventos del sistema desde `AppDelegate`:
+Si tu app admite continuar una verificación al pasar a segundo plano, reenvía los eventos del sistema a la SDK desde `AppDelegate`:
 
 ```swift
 import UIKit
@@ -15,9 +15,9 @@ func application(_ application: UIApplication,
         return
     }
 
-    // Reenvía el evento al componente de la app que tenga a cargo la sesión.
+    // Reenvía el evento a otro componente de la app si le corresponde.
     completionHandler()
 }
 ```
 
-En una app SwiftUI, registra `AppDelegate` mediante `@UIApplicationDelegateAdaptor`. iOS determina cuándo puede continuar el trabajo en segundo plano. Prueba el comportamiento de la app durante los cambios de estado en un dispositivo físico antes de publicarla.
+En una app SwiftUI, registra `AppDelegate` mediante `@UIApplicationDelegateAdaptor`. iOS determina cuándo permite continuar el trabajo en segundo plano. Verifica el comportamiento de tu app al cambiar de estado en un dispositivo físico.
