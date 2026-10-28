@@ -7,7 +7,7 @@ Integra la verificación de identidad en tu aplicación: onboarding, autenticaci
 - Usa iOS 16.0 o posterior y Xcode compatible con Swift 6.4.
 - Solicita las credenciales de tu integración, el identificador del contrato y la licencia para el identificador de tu app.
 - Sigue la [guía de instalación](INSTALACION.md) para agregar el archivo de la SDK, sus dependencias y los permisos necesarios.
-- Review the [iOS integration demo](Demo/iOSBlinkIDIntegration/README.md) for a complete SwiftUI and UIKit example.
+- Revisa el [demo de integración para iOS](Demo/iOSBlinkIDIntegration/README.md) para ver un ejemplo completo con SwiftUI y UIKit.
 - Realiza las pruebas de cámara, documento y validación facial en un dispositivo físico.
 
 Esta entrega corresponde a producción. La configuración de compilación de tu app no cambia ese ambiente. Si necesitas otra entrega, solicítala a BecomeDigital con una licencia válida para el identificador de esa aplicación.
@@ -115,7 +115,7 @@ La respuesta dispone de `toJson()` si necesitas representarla como texto. Los er
 
 ## Guías de integración
 
-- [iOS integration demo](Demo/iOSBlinkIDIntegration/README.md)
+- [Demo de integración para iOS](Demo/iOSBlinkIDIntegration/README.md)
 - [Instalación, dependencias, licencia y permisos](INSTALACION.md)
 - [Localización y claves admitidas](LOCALIZACION.md)
 - [Resultados y errores](ERRORES.md)
