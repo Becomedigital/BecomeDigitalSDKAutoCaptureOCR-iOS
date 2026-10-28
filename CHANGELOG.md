@@ -1,12 +1,11 @@
 # Cambios de la SDK
 
-## Actualización de validación facial — 27 de octubre de 2026
+## Validación facial — 27 de octubre de 2026
 
 - Mejora la compatibilidad del envío de selfies para su validación.
-- Ajusta el límite de intentos automáticos de validación de la selfie.
-- Amplía el diagnóstico opcional para distinguir baja confianza, rechazo y validación no disponible.
-- Incluye la resolución de textos y los valores predeterminados actualizados de la SDK.
-- Incluye los recursos y el modelo compilado de Face Liveness dentro del framework para evitar cierres por recursos faltantes.
-- Mantiene BlinkID Core/UX para la captura documental, el OCR y la alternativa de captura manual.
+- Respeta el límite de intentos automáticos de validación de la selfie.
+- Amplía el diagnóstico opcional para identificar los motivos de repetición de la captura facial.
+- Actualiza los textos predeterminados y la aplicación de las personalizaciones del contrato.
+- Corrige cierres por recursos faltantes al iniciar la validación facial.
 
-Después de actualizar el binario, recompila la app y verifica el flujo completo en un dispositivo físico. Activa temporalmente los registros de diagnóstico si necesitas revisar un fallo.
+Después de reemplazar el archivo de la SDK, compila tu app con las dependencias de la [guía de instalación](INSTALACION.md) y comprueba la verificación completa en un dispositivo físico. La API de inicialización de esta entrega se describe en el [README](README.md).
