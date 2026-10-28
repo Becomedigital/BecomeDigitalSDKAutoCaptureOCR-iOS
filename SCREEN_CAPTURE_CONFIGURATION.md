@@ -1,33 +1,31 @@
-# Protección contra capturas de pantalla — iOS
+# Protección contra capturas de pantalla en iOS
 
-Esta guía corresponde al XCFramework incluido en este repositorio. El parámetro `BDIVConfig.preventScreenCapture` tiene el valor predeterminado `false` en Debug y Release. En distribuciones anteriores, el valor predeterminado era `true`.
+Configura `preventScreenCapture` antes de iniciar la verificación, según los requisitos de privacidad de tu app.
 
-| Valor | Comportamiento de la SDK |
+| Valor | Comportamiento |
 | --- | --- |
-| `false` (predeterminado) | La SDK no aplica su protección contra capturas ni la vista de bloqueo por grabación. |
-| `true` | La SDK protege sus pantallas y muestra una vista de bloqueo mientras detecta una grabación. |
+| `false`, predeterminado | La SDK permite capturas y grabaciones de sus pantallas. |
+| `true` | La SDK activa la protección de sus pantallas contra capturas y grabaciones. |
 
-La opción cubre las pantallas de la SDK; no configura otras pantallas de la app ni modifica protecciones que iOS u otros componentes apliquen por separado.
+La opción está disponible en onboarding y autenticación. Se aplica a las pantallas de BecomeDigital; no cambia la protección de otras pantallas de tu app ni las restricciones independientes del sistema u otros componentes.
 
 ## Habilitar la protección
 
 ```swift
 let config = BDIVConfig(
-    clienId: "TU_CLIENT_ID",
-    clientSecret: "TU_CLIENT_SECRET",
-    contractId: "TU_CONTRACT_ID",
+    clienId: clientId,
+    clientSecret: clientSecret,
+    contractId: contractId,
     documenTypes: [.DNI, .PASSPORT],
-    userId: "TU_USER_ID",
+    userId: userId,
     preventScreenCapture: true
 )
-let verification = BecomeDigitalSDK(bdivConfig: config, delegate: self)
-verification.startVerification()
 ```
 
-Omite el parámetro o usa `false` para permitir capturas. El valor queda fijo en cada instancia de configuración; crea una nueva si necesitas cambiarlo para un flujo posterior. La opción está disponible en onboarding y autenticación.
+Crea una nueva instancia de `BDIVConfig` si otra verificación necesita un valor diferente.
 
-## Actualización
+## Actualizar una integración anterior
 
-Revisa las llamadas que antes omitían el parámetro. Pasa `true` donde deba mantenerse la protección. Los valores explícitos conservan el comportamiento solicitado. Recompila la app con el framework y las dependencias indicadas en el [README](README.md).
+En entregas anteriores, la protección estaba habilitada de forma predeterminada. Si tu app necesita conservarla, establece `true` explícitamente. Los valores `true` o `false` ya indicados conservan el comportamiento solicitado.
 
-En un dispositivo físico, verifica las capturas y la grabación durante la captura documental, la validación facial, la cancelación y el regreso a la app. Prueba ambos valores si la app admite los dos modos.
+Después de actualizar la app, comprueba las capturas y la grabación en un dispositivo físico durante la captura del documento, la validación facial, la cancelación y el regreso a la app.
