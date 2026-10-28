@@ -18,14 +18,20 @@ Consulta los [cambios de esta actualización](CHANGELOG.md) y la [guía de diagn
 | --- | --- |
 | iOS | 16.0 o posterior |
 | Framework de la SDK de Become | 1.2.3 |
-| Amplify Swift | 2.53.3 |
-| Amplify UI Swift Liveness | 1.4.4 |
+| Amplify Swift | 2.58.5 |
+| Amplify UI Swift Liveness | 1.4.5 |
 | Paquete BlinkID para iOS | 8002.0.2 |
 | Herramientas de compilación de Xcode | Compatibles con Swift 6 |
 
-El XCFramework incluye las variantes arm64 para dispositivos iOS y arm64/x86_64 para el simulador. La distribución es binaria; este repositorio no se agrega directamente como paquete Swift.
+The XCFramework contains arm64 for iOS devices and arm64/x86_64 for iOS Simulator. This branch prepares Swift Package Manager distribution; see [the SPM guide](SPM.md). The remote package becomes installable when its matching GitHub Release asset is published.
 
 ## Instalación
+
+### Swift Package Manager
+
+Add `https://github.com/Becomedigital/BecomeDigitalSDKAutoCaptureOCR-iOS.git` in Xcode, choose the `BDIdentityVerification` product, and select **Exact Version**. The package resolves the required BlinkIDUX, Amplify, and FaceLiveness products. See [SPM.md](SPM.md) for the release asset, license, and migration steps. Installation becomes available when the matching GitHub Release is published.
+
+### Manual XCFramework installation
 
 1. Descarga o clona este repositorio y agrega `BDIdentityVerification.xcframework` al target de la aplicación.
 2. En **Frameworks, Libraries, and Embedded Content**, selecciona **Embed & Sign** para integrarlo y firmarlo.
@@ -33,8 +39,8 @@ El XCFramework incluye las variantes arm64 para dispositivos iOS y arm64/x86_64 
 
 | URL del paquete | Versión |
 | --- | --- |
-| `https://github.com/aws-amplify/amplify-swift` | 2.53.3 |
-| `https://github.com/aws-amplify/amplify-ui-swift-liveness` | 1.4.4 |
+| `https://github.com/aws-amplify/amplify-swift` | 2.58.5 |
+| `https://github.com/aws-amplify/amplify-ui-swift-liveness` | 1.4.5 |
 | `https://github.com/microblink/blinkid-ios` | 8002.0.2 |
 
 Agrega al target los productos requeridos de Amplify y Face Liveness. Agrega el producto **BlinkIDUX**; su paquete también incluye la dependencia binaria **BlinkID**. Verifica que el directorio `Frameworks` de la app compilada contenga **BDIdentityVerification.framework**, **BlinkID.framework** y **BlinkIDUX.framework**, integrados y firmados.

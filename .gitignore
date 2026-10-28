@@ -1,4 +1,4 @@
-# Archivos locales y salidas de compilación
+# Local files and build output
 .DS_Store
 .build/
 build/
@@ -15,3 +15,6 @@ xcuserdata/
 *.keystore
 keystore.properties
 local.properties
+.swiftpm/
+dist/
+__pycache__/
