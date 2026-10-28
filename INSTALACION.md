@@ -49,3 +49,5 @@ Si tu integración utiliza ubicación, agrega también `NSLocationWhenInUseUsage
 ## Continuar con la integración
 
 Sigue el [ejemplo de inicialización](README.md#iniciar-una-verificación). Para adaptar instrucciones de captura o prueba de vida, consulta las [claves de localización](LOCALIZACION.md).
+
+The [iOS integration demo](Demo/iOSBlinkIDIntegration/README.md) shows these steps in an app with a SwiftUI screen, the UIKit scene lifecycle, and SDK response handling.

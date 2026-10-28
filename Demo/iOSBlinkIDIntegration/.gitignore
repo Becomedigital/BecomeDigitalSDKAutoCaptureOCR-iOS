@@ -1,0 +1,10 @@
+/App/DemoConfiguration.plist
+/App/Secrets.plist
+/App/com.become.blinkid.key.txt
+/DerivedData/
+/SourcePackages/
+/build/
+*.xcuserstate
+xcuserdata/
+*.xcarchive
+*.ipa
