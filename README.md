@@ -21,7 +21,7 @@ Consulta los [cambios de esta actualización](CHANGELOG.md) y la [guía de diagn
 | Amplify Swift | 2.58.5 |
 | Amplify UI Swift Liveness | 1.4.5 |
 | Paquete BlinkID para iOS | 8002.0.2 |
-| Herramientas de compilación de Xcode | Compatibles con Swift 6 |
+| Xcode toolchain | Xcode 27.1 / Swift 6.4 verified; earlier versions unverified |
 
 The XCFramework contains arm64 for iOS devices and arm64/x86_64 for iOS Simulator. This branch prepares Swift Package Manager distribution; see [the SPM guide](SPM.md). The remote package becomes installable when its matching GitHub Release asset is published.
 

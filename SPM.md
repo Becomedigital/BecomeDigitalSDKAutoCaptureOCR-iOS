@@ -2,6 +2,8 @@
 
 This repository distributes the `BDIdentityVerification` module as a binary Swift package. The source repositories remain separate. The package product carries the BlinkIDUX, Amplify, and FaceLiveness products used by the existing Xcode integration.
 
+The XCFramework targets iOS 16.0 and was built with Apple Swift 6.4. This package requires a Swift 6.4 toolchain; Xcode 27.1 is the verified build environment. Earlier Xcode versions have not been validated with this binary.
+
 ## Consumer installation
 
 After the matching GitHub Release is published, add this package URL in Xcode:
