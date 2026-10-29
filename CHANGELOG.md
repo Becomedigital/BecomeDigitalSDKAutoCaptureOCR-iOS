@@ -6,7 +6,7 @@
 - Conserva la firma anterior con credenciales, marcada como deprecada con indicaciones de migración.
 - Mantiene los resultados, callbacks y parámetros opcionales de las integraciones existentes.
 - Actualiza el demo para utilizar JWT como ejemplo recomendado.
-- Conserva BlinkID y la alternativa de captura manual.
+- Conserva la captura automática de documentos con reconocimiento OCR y la alternativa manual.
 
 Consulta los [ejemplos de ambas firmas y la guía de migración](AUTENTICACION.md).
 

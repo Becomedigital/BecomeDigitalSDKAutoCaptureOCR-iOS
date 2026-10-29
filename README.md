@@ -1,6 +1,6 @@
 # SDK de BecomeDigital AutoCapture OCR para iOS
 
-Integra la verificación de identidad en tu aplicación: onboarding, autenticación, captura documental automática, reconocimiento OCR y alternativa manual y validación facial. Esta distribución incluye `BDIdentityVerification.xcframework` y utiliza BlinkID para la captura de documentos.
+Integra la verificación de identidad en tu aplicación: onboarding, autenticación, captura automática de documentos con reconocimiento OCR y alternativa manual, y validación facial. Esta distribución incluye `BDIdentityVerification.xcframework`.
 
 ## Antes de comenzar
 
