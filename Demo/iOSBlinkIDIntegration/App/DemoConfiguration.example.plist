@@ -4,6 +4,8 @@
 <dict>
 	<key>jwt</key>
 	<string></string>
+	<key>verificationResultsJwt</key>
+	<string></string>
 	<key>contractId</key>
 	<string></string>
 	<key>debugLogsEnabled</key>

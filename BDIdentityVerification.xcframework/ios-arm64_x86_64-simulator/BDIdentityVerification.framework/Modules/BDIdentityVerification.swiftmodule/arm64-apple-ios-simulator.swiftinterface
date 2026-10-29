@@ -160,6 +160,7 @@ public struct BDIVConfig {
   @available(*, deprecated, message: "Obtain a JWT on your backend and use BDIVConfig(jwt:contractId:documenTypes:userId:) instead.")
   public let clientSecret: Swift::String
   public let jwt: Swift::String
+  public var verificationResultsJwt: Swift::String?
   public let contractId: Swift::String
   public let documenTypes: [BDIdentityVerification::DocumentType]
   public let userId: Swift::String

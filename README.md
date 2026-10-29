@@ -24,14 +24,15 @@ final class VerificationViewController: UIViewController, BDIVDelegate {
     private var verification: BecomeDigitalSDK?
 
     func startOnboarding() {
-        let config = BDIVConfig(
-            jwt: "TU_JWT_VIGENTE",
+        var config = BDIVConfig(
+            jwt: "TU_JWT_DE_CREACION",
             contractId: "TU_CONTRACT_ID",
             documenTypes: [.DNI, .PASSPORT],
             userId: "TU_USER_ID",
             flow: .Onboarding,
             themeMode: .system
         )
+        config.verificationResultsJwt = "TU_JWT_DE_CONSULTA"
         verification = BecomeDigitalSDK(bdivConfig: config, delegate: self)
         verification?.startVerification()
     }
@@ -58,19 +59,22 @@ final class VerificationViewController: UIViewController, BDIVDelegate {
 }
 ```
 
+Para onboarding con consulta final, recibe desde tu backend el JWT de creación (`verification:create`) y el de consulta (`verification:get`). Asígnalos a `jwt` y `verificationResultsJwt`, respectivamente. Consulta el [diagnóstico de HTTP 403 y la migración](AUTENTICACION.md).
+
 Los nombres `documenTypes` y `SUCCES` corresponden a la API pública y deben escribirse así.
 
 ### Autenticación de un usuario existente
 
 Usa `flow: .Authentication` con un `userId` existente. Cuando no se soliciten documentos, puedes pasar `documenTypes: []`.
 
-La versión **1.3.0** recomienda la firma con JWT. La firma con credenciales permanece disponible y deprecada; consulta los [ejemplos y pasos de migración](AUTENTICACION.md).
+Esta entrega recomienda la firma con JWT. La firma con credenciales permanece disponible y deprecada; consulta los [ejemplos y pasos de migración](AUTENTICACION.md).
 
 ## Configurar la integración
 
 | Parámetro | Valor predeterminado | Uso |
 | --- | --- | --- |
 | `jwt` | Requerido en la firma recomendada | Token vigente obtenido por tu integración, sin el prefijo `Bearer `. |
+| `verificationResultsJwt` | `nil` | JWT para consultar el resultado de onboarding. Asígnalo antes de iniciar; si se omite, se conserva el uso del token principal. No cambia la firma deprecada. |
 | `contractId` | Argumento requerido | Identificador del contrato asignado a tu integración. |
 | `clienId`, `clientSecret` | Solo firma deprecada | Se conservan para integraciones existentes. Para nuevas integraciones, utiliza `jwt`. |
 | `userId` | Argumento requerido | Identificador del usuario. Debe estar informado en autenticación; onboarding también admite una cadena vacía. |

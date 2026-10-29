@@ -1,8 +1,10 @@
 # Cambios de la SDK
 
-## 1.3.0 — 29 de octubre de 2026
+## Actualización de autenticación — 29 de octubre de 2026
 
 - Agrega la firma de inicialización con JWT obtenido por la integración.
+- Permite utilizar tokens distintos para crear la verificación y consultar su resultado mediante `verificationResultsJwt`.
+- Incluye compatibilidad de integración para iPhone físico y simuladores en Mac con Apple Silicon o Intel.
 - Conserva la firma anterior con credenciales, marcada como deprecada con indicaciones de migración.
 - Mantiene los resultados, callbacks y parámetros opcionales de las integraciones existentes.
 - Actualiza el demo para utilizar JWT como ejemplo recomendado.

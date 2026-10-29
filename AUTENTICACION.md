@@ -1,29 +1,52 @@
 # Inicialización con JWT y migración de la firma anterior — iOS
 
-La versión **1.3.0** agrega la inicialización con `jwt` como opción recomendada. La firma con `clienId` y `clientSecret` se conserva y sigue funcionando para las integraciones existentes, pero está marcada como **deprecada**. Esta actualización no anuncia una fecha de retiro de esa firma.
+Esta entrega recomienda la inicialización con `jwt`. La firma con `clienId` y `clientSecret` se conserva para las integraciones existentes y está marcada como **deprecada**. No se anuncia una fecha de retiro de esa firma.
+
+## Preparar los tokens desde tu backend
+
+Antes de iniciar una verificación, obtén los JWT desde el backend de tu aplicación. Entrega únicamente sus valores, **sin el prefijo `Bearer`**, para el mismo ambiente y contrato de tu integración. Mantén las credenciales de cliente en tu backend.
+
+Para onboarding con consulta del resultado final, prepara dos tokens:
+
+| Operación de la integración | Permiso solicitado | Configuración pública |
+| --- | --- | --- |
+| Crear la verificación | `verification:create` | Argumento `jwt` del inicializador. |
+| Consultar el resultado | `verification:get` | Propiedad `verificationResultsJwt`, asignada antes de iniciar la SDK. |
+
+Consulta la [guía de autenticación](https://becomedigital.gitbook.io/kyc_api_es/authentication), la [obtención de tokens](https://becomedigital.gitbook.io/kyc_api_es/endpoints/auth) y los [permisos para consultar resultados](https://becomedigital.gitbook.io/kyc_api_es/endpoints/verification-results). Cada token debe estar autorizado para la operación correspondiente. Cambiar únicamente el permiso del token principal a `verification:get` deja sin cubrir la creación.
 
 ## Firma recomendada
 
-Obtén un JWT vigente desde el backend de tu aplicación antes de iniciar la SDK. Pasa únicamente el valor del token, **sin el prefijo `Bearer `**, y el identificador del contrato.
-
 ```swift
-let config = BDIVConfig(
-    jwt: jwt,
+// Ambos tokens se reciben desde el backend de la aplicación.
+var config = BDIVConfig(
+    jwt: creationJwt,
     contractId: contractId,
     documenTypes: [.DNI, .PASSPORT],
     userId: userId,
     flow: .Onboarding,
     themeMode: .system
 )
+config.verificationResultsJwt = resultsJwt
 let verification = BecomeDigitalSDK(bdivConfig: config, delegate: self)
 verification.startVerification()
 ```
 
-El backend de tu integración debe obtener y renovar el token de acuerdo con la [guía pública de autenticación de BecomeDigital](https://becomedigital.gitbook.io/kyc_api_es/authentication). Usa un token autorizado para tu contrato y flujo, y del mismo ambiente que la SDK. Mantén las credenciales de la nueva integración en tu backend.
+Conserva la instancia de `BecomeDigitalSDK` mientras la verificación esté activa y atiende `BDIVDelegate` como se muestra en el [README](README.md).
 
-La SDK utiliza el JWT que recibe. Un token vacío se informa mediante el callback de error; un token rechazado o vencido requiere que tu integración obtenga uno vigente antes de iniciar otro intento. La firma JWT no cambia automáticamente a la firma con credenciales ni renueva el token por su cuenta.
+`verificationResultsJwt` solo se utiliza al consultar el resultado de onboarding con `performVerificationCheck: true`, que es el valor predeterminado. No reemplaza `jwt` para crear la verificación ni selecciona el flujo `Authentication`. Con `performVerificationCheck: false`, se recibe la creación sin esperar su resultado final. En `flow: .Authentication`, el token principal debe autorizar ese flujo; esta propiedad no cambia su comportamiento.
 
-Crea una nueva instancia de `BDIVConfig` con el token vigente para cada nuevo intento.
+Por compatibilidad, el valor predeterminado de `verificationResultsJwt` es `nil`: si no lo asignas, se conserva el uso del token principal para la consulta. Esto solo funciona si ese token tiene el permiso necesario; un token limitado a `verification:create` no autoriza la consulta de resultados. Un valor explícito vacío o compuesto por espacios se rechaza al intentar consultar, sin utilizar otro token como reemplazo.
+
+La SDK no obtiene ni renueva los tokens de la firma JWT y no cambia automáticamente a la firma con credenciales. Si un token vence o es rechazado, obtén los tokens vigentes desde tu backend y crea una nueva configuración y otra instancia antes de un nuevo intento. No muestres ni registres los JWT.
+
+## Si se crea la verificación, pero la consulta devuelve HTTP 403
+
+Una creación confirmada con HTTP 201 seguida de HTTP 403 al consultar puede indicar que el JWT de consulta no tiene el permiso requerido. No significa por sí sola que el token haya vencido.
+
+Revisa que `jwt` corresponda a creación (`verification:create`) y que hayas asignado un token autorizado para consulta (`verification:get`) a `verificationResultsJwt` antes de iniciar la SDK. Comprueba también vigencia, ambiente, contrato y permisos de tu integración. Si el problema continúa, comparte con soporte el estado HTTP y el paso afectado, sin incluir tokens, credenciales ni datos personales.
+
+Los avisos de UIKit o WebKit no explican por sí solos este rechazo HTTP. Consulta también el [manejo de errores](ERRORES.md).
 
 ## Firma anterior, deprecada y compatible
 
@@ -38,18 +61,14 @@ let config = BDIVConfig(
 )
 ```
 
-Las aplicaciones que ya utilizan esta firma pueden conservar sus llamadas durante la migración. Reciben la advertencia de deprecación, pero mantienen su funcionamiento. Las propiedades de credenciales permanecen disponibles para esas integraciones.
+Xcode muestra la advertencia de deprecación en el inicializador con credenciales y en las propiedades `clienId` y `clientSecret`, e identifica la firma con `jwt` como reemplazo. Conserva la escritura original de `clienId` mientras uses la firma anterior.
 
-Xcode muestra una advertencia de deprecación en el inicializador con credenciales y en sus propiedades `clienId` y `clientSecret`. La advertencia identifica el inicializador con `jwt` como reemplazo. Las opciones, su orden y sus valores predeterminados se conservan.
+Las aplicaciones existentes mantienen su forma de iniciar la verificación y sus opciones de flujo, documentos, apariencia, diagnóstico y consulta. La firma deprecada conserva la obtención del token; `verificationResultsJwt` no modifica esa ruta. No asignes esta propiedad para cambiar la autenticación de una configuración creada con credenciales.
 
 ## Migrar una integración
 
-1. Integra el nuevo archivo de la SDK y conserva las dependencias de la [guía de instalación](INSTALACION.md).
-2. Prepara la obtención del JWT desde tu backend.
-3. Sustituye los argumentos `clienId` y `clientSecret` por `jwt` en la creación de `BDIVConfig`.
-4. Conserva `contractId`, documentos, usuario y los argumentos opcionales que ya utilizas: flujo, consulta del resultado, diagnóstico, protección de pantalla, datos del documento y modo de apariencia.
-5. Mantén el manejo actual de resultados, errores y cancelación. Prueba la nueva firma en un dispositivo físico antes de publicar tu app.
-
-La opción `flow` sigue seleccionando onboarding o autenticación de un usuario existente. Es independiente de cómo obtienes el JWT. Esta actualización conserva BlinkID para la captura documental, los resultados públicos y las opciones de presentación.
-
-No muestres ni registres el JWT. Los ejemplos del [README](README.md) y el demo de esta distribución utilizan la firma recomendada.
+1. Reemplaza el archivo de la SDK y conserva las dependencias de la [guía de instalación](INSTALACION.md).
+2. Prepara en tu backend los tokens para las operaciones que utiliza tu app.
+3. Sustituye `clienId` y `clientSecret` por `jwt` al crear `BDIVConfig`.
+4. Para onboarding con consulta final, declara la configuración con `var` y asigna `verificationResultsJwt` antes de crear `BecomeDigitalSDK`.
+5. Conserva `contractId`, documentos, usuario, parámetros opcionales y el manejo de resultados, errores y cancelación. Comprueba la nueva integración en un dispositivo físico antes de publicarla.

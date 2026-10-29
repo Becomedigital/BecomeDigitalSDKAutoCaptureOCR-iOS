@@ -34,8 +34,9 @@ final class ViewController: UIViewController, BDIVDelegate {
               let data = try? Data(contentsOf: url),
               let values = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any],
               let jwt = (values["jwt"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines),
+              let resultsJwt = (values["verificationResultsJwt"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines),
               let contractId = (values["contractId"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines),
-              !jwt.isEmpty, !contractId.isEmpty else {
+              !jwt.isEmpty, !resultsJwt.isEmpty, !contractId.isEmpty else {
             status.text = NSLocalizedString("credentials_missing", comment: "Missing local demo credentials")
             return
         }
@@ -43,7 +44,7 @@ final class ViewController: UIViewController, BDIVDelegate {
             status.text = NSLocalizedString("license_missing", comment: "Missing BlinkID license")
             return
         }
-        let config = BDIVConfig(
+        var config = BDIVConfig(
             jwt: jwt,
             contractId: contractId,
             documenTypes: [.DNI, .PASSPORT],
@@ -52,6 +53,7 @@ final class ViewController: UIViewController, BDIVDelegate {
             debugLogsEnabled: values["debugLogsEnabled"] as? Bool ?? false,
             themeMode: .system
         )
+        config.verificationResultsJwt = resultsJwt
         identityVerification = BecomeDigitalSDK(bdivConfig: config, delegate: self)
         status.text = NSLocalizedString("status_starting", comment: "Starting verification")
         identityVerification?.startVerification()
