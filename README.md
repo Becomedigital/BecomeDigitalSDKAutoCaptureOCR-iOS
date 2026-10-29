@@ -5,7 +5,7 @@ Integra la verificación de identidad en tu aplicación: onboarding, autenticaci
 ## Antes de comenzar
 
 - Usa iOS 16.0 o posterior y Xcode compatible con Swift 6.4.
-- Solicita las credenciales de tu integración, el identificador del contrato y la licencia para el identificador de tu app.
+- Obtén un JWT vigente desde el backend de tu integración y solicita el identificador del contrato y la licencia para tu app.
 - Sigue la [guía de instalación](INSTALACION.md) para agregar el archivo de la SDK, sus dependencias y los permisos necesarios.
 - Revisa el [demo de integración para iOS](Demo/iOSBlinkIDIntegration/README.md) para ver un ejemplo completo con SwiftUI y UIKit.
 - Realiza las pruebas de cámara, documento y validación facial en un dispositivo físico.
@@ -25,8 +25,7 @@ final class VerificationViewController: UIViewController, BDIVDelegate {
 
     func startOnboarding() {
         let config = BDIVConfig(
-            clienId: "TU_CLIENT_ID",
-            clientSecret: "TU_CLIENT_SECRET",
+            jwt: "TU_JWT_VIGENTE",
             contractId: "TU_CONTRACT_ID",
             documenTypes: [.DNI, .PASSPORT],
             userId: "TU_USER_ID",
@@ -59,17 +58,21 @@ final class VerificationViewController: UIViewController, BDIVDelegate {
 }
 ```
 
-Los nombres `clienId`, `documenTypes` y `SUCCES` corresponden a la API pública y deben escribirse así.
+Los nombres `documenTypes` y `SUCCES` corresponden a la API pública y deben escribirse así.
 
 ### Autenticación de un usuario existente
 
 Usa `flow: .Authentication` con un `userId` existente. Cuando no se soliciten documentos, puedes pasar `documenTypes: []`.
 
+La versión **1.3.0** recomienda la firma con JWT. La firma con credenciales permanece disponible y deprecada; consulta los [ejemplos y pasos de migración](AUTENTICACION.md).
+
 ## Configurar la integración
 
 | Parámetro | Valor predeterminado | Uso |
 | --- | --- | --- |
-| `clienId`, `clientSecret`, `contractId` | Argumentos requeridos | Credenciales e identificador del contrato asignados a tu integración; no deben estar vacíos. |
+| `jwt` | Requerido en la firma recomendada | Token vigente obtenido por tu integración, sin el prefijo `Bearer `. |
+| `contractId` | Argumento requerido | Identificador del contrato asignado a tu integración. |
+| `clienId`, `clientSecret` | Solo firma deprecada | Se conservan para integraciones existentes. Para nuevas integraciones, utiliza `jwt`. |
 | `userId` | Argumento requerido | Identificador del usuario. Debe estar informado en autenticación; onboarding también admite una cadena vacía. |
 | `documenTypes` | Argumento requerido | Tipos de documento: `.DNI`, `.PASSPORT`, `.DRIVERLICENSE`. Una lista vacía utiliza los tipos disponibles para el contrato. |
 | `flow` | `.Onboarding` | Selecciona onboarding o autenticación. |
@@ -117,6 +120,7 @@ La respuesta dispone de `toJson()` si necesitas representarla como texto. Los er
 
 - [Demo de integración para iOS](Demo/iOSBlinkIDIntegration/README.md)
 - [Instalación, dependencias, licencia y permisos](INSTALACION.md)
+- [Inicialización con JWT y firma deprecada](AUTENTICACION.md)
 - [Localización y claves admitidas](LOCALIZACION.md)
 - [Resultados y errores](ERRORES.md)
 - [Diagnóstico y soporte](LOGGING.md)

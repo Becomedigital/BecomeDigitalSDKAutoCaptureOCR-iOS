@@ -33,10 +33,9 @@ final class ViewController: UIViewController, BDIVDelegate {
         guard let url = Bundle.main.url(forResource: "DemoConfiguration", withExtension: "plist"),
               let data = try? Data(contentsOf: url),
               let values = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any],
-              let clientId = (values["clientId"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines),
-              let clientSecret = (values["clientSecret"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines),
+              let jwt = (values["jwt"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines),
               let contractId = (values["contractId"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines),
-              !clientId.isEmpty, !clientSecret.isEmpty, !contractId.isEmpty else {
+              !jwt.isEmpty, !contractId.isEmpty else {
             status.text = NSLocalizedString("credentials_missing", comment: "Missing local demo credentials")
             return
         }
@@ -45,8 +44,7 @@ final class ViewController: UIViewController, BDIVDelegate {
             return
         }
         let config = BDIVConfig(
-            clienId: clientId,
-            clientSecret: clientSecret,
+            jwt: jwt,
             contractId: contractId,
             documenTypes: [.DNI, .PASSPORT],
             userId: userId,

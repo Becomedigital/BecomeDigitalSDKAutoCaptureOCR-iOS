@@ -1,5 +1,15 @@
 # Cambios de la SDK
 
+## 1.3.0 — 29 de octubre de 2026
+
+- Agrega la firma de inicialización con JWT obtenido por la integración.
+- Conserva la firma anterior con credenciales, marcada como deprecada con indicaciones de migración.
+- Mantiene los resultados, callbacks y parámetros opcionales de las integraciones existentes.
+- Actualiza el demo para utilizar JWT como ejemplo recomendado.
+- Conserva BlinkID y la alternativa de captura manual.
+
+Consulta los [ejemplos de ambas firmas y la guía de migración](AUTENTICACION.md).
+
 ## Validación facial — 27 de octubre de 2026
 
 - Mejora la compatibilidad del envío de selfies para su validación.

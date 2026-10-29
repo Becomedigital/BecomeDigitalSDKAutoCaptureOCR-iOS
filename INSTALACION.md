@@ -5,7 +5,7 @@
 | Requisito | Valor |
 | --- | --- |
 | iOS mínimo | 16.0 |
-| Framework de BecomeDigital | 1.2.3 |
+| Framework de BecomeDigital | 1.3.0 |
 | Herramientas | Xcode compatible con Swift 6.4 |
 | Dispositivos | arm64 |
 | Simulador | arm64 y x86_64 |
