@@ -1,11 +1,11 @@
 # SDK de BecomeDigital AutoCapture OCR para iOS
 
-Integra la verificación de identidad en tu aplicación: onboarding, autenticación, captura documental automática, reconocimiento OCR y alternativa manual y validación facial. Esta distribución incluye `BDIdentityVerification.xcframework` y utiliza BlinkID para la captura de documentos.
+Integra la verificación de identidad en tu aplicación: onboarding, autenticación, captura automática de documentos con reconocimiento OCR y alternativa manual, y validación facial. Esta distribución incluye `BDIdentityVerification.xcframework`.
 
 ## Antes de comenzar
 
 - Usa iOS 16.0 o posterior y Xcode compatible con Swift 6.4.
-- Solicita las credenciales de tu integración, el identificador del contrato y la licencia para el identificador de tu app.
+- Obtén un JWT vigente desde el backend de tu integración y solicita el identificador del contrato y la licencia para tu app.
 - Sigue la [guía de instalación](INSTALACION.md) para agregar el archivo de la SDK, sus dependencias y los permisos necesarios.
 - Revisa el [demo de integración para iOS](Demo/iOSBlinkIDIntegration/README.md) para ver un ejemplo completo con SwiftUI y UIKit.
 - Realiza las pruebas de cámara, documento y validación facial en un dispositivo físico.
@@ -24,15 +24,15 @@ final class VerificationViewController: UIViewController, BDIVDelegate {
     private var verification: BecomeDigitalSDK?
 
     func startOnboarding() {
-        let config = BDIVConfig(
-            clienId: "TU_CLIENT_ID",
-            clientSecret: "TU_CLIENT_SECRET",
+        var config = BDIVConfig(
+            jwt: "TU_JWT_DE_CREACION",
             contractId: "TU_CONTRACT_ID",
             documenTypes: [.DNI, .PASSPORT],
             userId: "TU_USER_ID",
             flow: .Onboarding,
             themeMode: .system
         )
+        config.verificationResultsJwt = "TU_JWT_DE_CONSULTA"
         verification = BecomeDigitalSDK(bdivConfig: config, delegate: self)
         verification?.startVerification()
     }
@@ -59,17 +59,24 @@ final class VerificationViewController: UIViewController, BDIVDelegate {
 }
 ```
 
-Los nombres `clienId`, `documenTypes` y `SUCCES` corresponden a la API pública y deben escribirse así.
+Para onboarding con consulta final, recibe desde tu backend el JWT de creación (`verification:create`) y el de consulta (`verification:get`). Asígnalos a `jwt` y `verificationResultsJwt`, respectivamente. Consulta el [diagnóstico de HTTP 403 y la migración](AUTENTICACION.md).
+
+Los nombres `documenTypes` y `SUCCES` corresponden a la API pública y deben escribirse así.
 
 ### Autenticación de un usuario existente
 
 Usa `flow: .Authentication` con un `userId` existente. Cuando no se soliciten documentos, puedes pasar `documenTypes: []`.
 
+Esta entrega recomienda la firma con JWT. La firma con credenciales permanece disponible y deprecada; consulta los [ejemplos y pasos de migración](AUTENTICACION.md).
+
 ## Configurar la integración
 
 | Parámetro | Valor predeterminado | Uso |
 | --- | --- | --- |
-| `clienId`, `clientSecret`, `contractId` | Argumentos requeridos | Credenciales e identificador del contrato asignados a tu integración; no deben estar vacíos. |
+| `jwt` | Requerido en la firma recomendada | Token vigente obtenido por tu integración, sin el prefijo `Bearer `. |
+| `verificationResultsJwt` | `nil` | JWT para consultar el resultado de onboarding. Asígnalo antes de iniciar; si se omite, se conserva el uso del token principal. No cambia la firma deprecada. |
+| `contractId` | Argumento requerido | Identificador del contrato asignado a tu integración. |
+| `clienId`, `clientSecret` | Solo firma deprecada | Se conservan para integraciones existentes. Para nuevas integraciones, utiliza `jwt`. |
 | `userId` | Argumento requerido | Identificador del usuario. Debe estar informado en autenticación; onboarding también admite una cadena vacía. |
 | `documenTypes` | Argumento requerido | Tipos de documento: `.DNI`, `.PASSPORT`, `.DRIVERLICENSE`. Una lista vacía utiliza los tipos disponibles para el contrato. |
 | `flow` | `.Onboarding` | Selecciona onboarding o autenticación. |
@@ -117,6 +124,7 @@ La respuesta dispone de `toJson()` si necesitas representarla como texto. Los er
 
 - [Demo de integración para iOS](Demo/iOSBlinkIDIntegration/README.md)
 - [Instalación, dependencias, licencia y permisos](INSTALACION.md)
+- [Inicialización con JWT y firma deprecada](AUTENTICACION.md)
 - [Localización y claves admitidas](LOCALIZACION.md)
 - [Resultados y errores](ERRORES.md)
 - [Diagnóstico y soporte](LOGGING.md)

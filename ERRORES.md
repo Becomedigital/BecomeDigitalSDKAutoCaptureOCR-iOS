@@ -16,13 +16,15 @@ El mensaje recibido describe lo sucedido; no es un código de error estable. No 
 
 | Situación | Qué revisar |
 | --- | --- |
-| No inicia la verificación | Credenciales, identificador del contrato y parámetros requeridos. Autenticación necesita un usuario existente. |
+| No inicia la verificación | JWT vigente, identificador del contrato y parámetros requeridos; si usas la firma deprecada, revisa sus credenciales. Autenticación necesita un usuario existente. |
+| Creación correcta y HTTP 403 al consultar | Comprueba los permisos por operación: `jwt` para creación y `verificationResultsJwt` para consulta. No basta con cambiar el token principal a `verification:get`. Revisa también vigencia, ambiente y contrato; consulta la [guía de autenticación](AUTENTICACION.md#si-se-crea-la-verificación-pero-la-consulta-devuelve-http-403). |
 | Cámara no disponible | Dispositivo físico, permiso de cámara y `NSCameraUsageDescription`. |
 | Licencia no válida | Archivo `com.become.blinkid.key.txt` y coincidencia con el identificador exacto de la app. |
 | Falta un módulo, clase o recurso | Archivos y dependencias de la [guía de instalación](INSTALACION.md). Evita mezclar versiones de distribuciones. |
 | Conexión interrumpida | Restablece la conexión y permite un nuevo intento iniciado por el usuario. |
 | Espera del resultado final | Revisa `pollingTimeout` y `pollingMaxAttempts` según los tiempos que necesita tu integración. |
 | Captura incompleta | Permite que el usuario repita la captura y complete los lados solicitados. |
+| JWT rechazado o vencido | Solicita un token vigente desde tu integración y permite iniciar un nuevo intento; consulta la [guía de autenticación](AUTENTICACION.md). |
 | Sesión vencida o no válida | Finaliza el intento actual y permite iniciar una nueva verificación. |
 
 ## Solicitar soporte

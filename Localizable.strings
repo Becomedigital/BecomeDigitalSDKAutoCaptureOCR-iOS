@@ -128,3 +128,8 @@
 "connection_lost_error" = "Se perdió la conexión a internet. Inténtalo nuevamente.";
 "text_info_upload" = "Estamos enviando tu información… %d%%";
 "text_info_upload_document" = "Estamos enviando tus documentos… %d%%";
+
+/* Mensajes opcionales de validación de la inicialización. */
+"error_jwt_empty" = "Se requiere un token de acceso JWT.";
+"error_clientid_empty" = "El identificador del cliente no puede estar vacío.";
+"error_client_secret_empty" = "El secreto del cliente no puede estar vacío.";

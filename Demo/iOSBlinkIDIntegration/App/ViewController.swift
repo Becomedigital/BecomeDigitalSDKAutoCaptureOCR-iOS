@@ -33,10 +33,10 @@ final class ViewController: UIViewController, BDIVDelegate {
         guard let url = Bundle.main.url(forResource: "DemoConfiguration", withExtension: "plist"),
               let data = try? Data(contentsOf: url),
               let values = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any],
-              let clientId = (values["clientId"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines),
-              let clientSecret = (values["clientSecret"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines),
+              let jwt = (values["jwt"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines),
+              let resultsJwt = (values["verificationResultsJwt"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines),
               let contractId = (values["contractId"] as? String)?.trimmingCharacters(in: .whitespacesAndNewlines),
-              !clientId.isEmpty, !clientSecret.isEmpty, !contractId.isEmpty else {
+              !jwt.isEmpty, !resultsJwt.isEmpty, !contractId.isEmpty else {
             status.text = NSLocalizedString("credentials_missing", comment: "Missing local demo credentials")
             return
         }
@@ -44,9 +44,8 @@ final class ViewController: UIViewController, BDIVDelegate {
             status.text = NSLocalizedString("license_missing", comment: "Missing BlinkID license")
             return
         }
-        let config = BDIVConfig(
-            clienId: clientId,
-            clientSecret: clientSecret,
+        var config = BDIVConfig(
+            jwt: jwt,
             contractId: contractId,
             documenTypes: [.DNI, .PASSPORT],
             userId: userId,
@@ -54,6 +53,7 @@ final class ViewController: UIViewController, BDIVDelegate {
             debugLogsEnabled: values["debugLogsEnabled"] as? Bool ?? false,
             themeMode: .system
         )
+        config.verificationResultsJwt = resultsJwt
         identityVerification = BecomeDigitalSDK(bdivConfig: config, delegate: self)
         status.text = NSLocalizedString("status_starting", comment: "Starting verification")
         identityVerification?.startVerification()
