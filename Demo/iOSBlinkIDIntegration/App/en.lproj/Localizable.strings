@@ -1,0 +1,10 @@
+"host_title" = "Become BlinkID Integration";
+"user_id_label" = "User ID";
+"user_id_required" = "Enter a user ID";
+"credentials_missing" = "Complete the local demo configuration";
+"license_missing" = "Add a BlinkID license for this app";
+"start_onboarding" = "Start onboarding";
+"status_ready" = "Ready";
+"status_starting" = "Starting onboarding";
+"sdk_status" = "SDK status: %@";
+"sdk_error" = "SDK error: %@";

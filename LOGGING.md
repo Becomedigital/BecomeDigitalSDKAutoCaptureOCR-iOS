@@ -8,8 +8,7 @@ Activa la opción antes de iniciar el flujo:
 
 ```swift
 let config = BDIVConfig(
-    clienId: clientId,
-    clientSecret: clientSecret,
+    jwt: jwt,
     contractId: contractId,
     documenTypes: [.DNI, .PASSPORT],
     userId: userId,

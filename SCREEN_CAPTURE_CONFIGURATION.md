@@ -13,8 +13,7 @@ La opción está disponible en onboarding y autenticación. Se aplica a las pant
 
 ```swift
 let config = BDIVConfig(
-    clienId: clientId,
-    clientSecret: clientSecret,
+    jwt: jwt,
     contractId: contractId,
     documenTypes: [.DNI, .PASSPORT],
     userId: userId,

@@ -182,3 +182,13 @@ Copia solo las entradas que vayas a personalizar. Conserva los marcadores de for
 | `amplify_ui_liveness_get_ready_photosensitivity_dialog_title` | Advertencia de fotosensibilidad |
 | `amplify_ui_liveness_get_ready_photosensitivity_icon_a11y` | Información sobre fotosensibilidad |
 | `amplify_ui_liveness_get_ready_photosensitivity_title` | Advertencia de fotosensibilidad |
+
+## Validación de la inicialización
+
+Puedes personalizar estos mensajes locales en `Localizable.strings`. Los dos mensajes de credenciales corresponden exclusivamente a la firma deprecada.
+
+| Clave | Ejemplo en español |
+| --- | --- |
+| `error_jwt_empty` | Se requiere un token de acceso JWT. |
+| `error_clientid_empty` | El identificador del cliente no puede estar vacío. |
+| `error_client_secret_empty` | El secreto del cliente no puede estar vacío. |
