@@ -14,7 +14,8 @@
     "Sources/BecomePackageDependencies/Dependencies.swift",
     ".github/scripts/distribution.py",
     ".github/distribution.json",
-    "CHECKSUMS.sha256"
+    "CHECKSUMS.sha256",
+    "VERSION"
   ],
   "resources": [
     "Assets.car",
