@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate and package the checked-in XCFramework for a SwiftPM release."""
+"""Valida y empaqueta el XCFramework para una versión SwiftPM."""
 
 from __future__ import annotations
 
@@ -39,13 +39,13 @@ def verify_existing_checksums() -> None:
         expected, relative = line.split("  ", 1)
         path = (ROOT / relative).resolve()
         if not path.is_relative_to(FRAMEWORK) or not path.is_file() or path in checked_paths:
-            raise ValueError(f"Missing or unsafe checksum path: {relative}")
+            raise ValueError(f"Ruta de checksum ausente o insegura: {relative}")
         checked_paths.add(path)
         if sha256(path) != expected:
-            raise ValueError(f"XCFramework content differs from CHECKSUMS.sha256: {relative}")
+            raise ValueError(f"El XCFramework difiere de CHECKSUMS.sha256: {relative}")
     framework_paths = {path.resolve() for path in FRAMEWORK.rglob("*") if path.is_file()}
     if checked_paths != framework_paths:
-        raise ValueError("CHECKSUMS.sha256 does not cover every XCFramework file")
+        raise ValueError("CHECKSUMS.sha256 no cubre todos los archivos del XCFramework")
 
 
 def inspect_framework(release_version: str, require_privacy_manifest: bool) -> None:
@@ -53,56 +53,82 @@ def inspect_framework(release_version: str, require_privacy_manifest: bool) -> N
         info = plistlib.load(stream)
     libraries = info.get("AvailableLibraries", [])
     if len(libraries) != 2:
-        raise ValueError("Expected one iOS device slice and one iOS Simulator slice")
+        raise ValueError("Se requiere una variante de dispositivo y una de simulador iOS")
 
     expected_slices = {
         ("ios", None): {"arm64"},
         ("ios", "simulator"): {"arm64", "x86_64"},
     }
     seen: set[tuple[str, str | None]] = set()
+    public_interfaces: list[str] = []
     for library in libraries:
         key = (library.get("SupportedPlatform"), library.get("SupportedPlatformVariant"))
         if key not in expected_slices or key in seen:
-            raise ValueError(f"Unexpected or duplicate XCFramework slice: {key}")
+            raise ValueError(f"Variante XCFramework inesperada o duplicada: {key}")
         seen.add(key)
         if set(library.get("SupportedArchitectures", [])) != expected_slices[key]:
-            raise ValueError(f"Unexpected architectures for {key}")
+            raise ValueError(f"Arquitecturas inesperadas para {key}")
 
         bundle = FRAMEWORK / library["LibraryIdentifier"] / library["LibraryPath"]
+        executable = bundle / "BDIdentityVerification"
+        actual_architectures = set(subprocess.run(
+            ["lipo", "-archs", str(executable)],
+            check=True, text=True, capture_output=True,
+        ).stdout.split())
+        if actual_architectures != expected_slices[key]:
+            raise ValueError(f"Las arquitecturas reales difieren de los metadatos: {bundle}")
         with (bundle / "Info.plist").open("rb") as stream:
             bundle_info = plistlib.load(stream)
         expected_bundle_version = release_version.split("-", 1)[0]
         if bundle_info.get("CFBundleShortVersionString") != expected_bundle_version:
-            raise ValueError(f"Framework version differs from {release_version}: {bundle}")
+            raise ValueError(f"La versión del framework difiere de {release_version}: {bundle}")
         if bundle_info.get("MinimumOSVersion") != "16.0":
-            raise ValueError(f"Expected minimum iOS 16.0 in {bundle}")
+            raise ValueError(f"Se requiere iOS 16.0 como mínimo en {bundle}")
         if bundle_info.get("BaseUrl") != "https://api.svi.becomedigital.net":
-            raise ValueError(f"Non-production API URL in {bundle}")
+            raise ValueError(f"La URL de la API no corresponde a producción en {bundle}")
 
         required = (
             "BDIdentityVerification",
             "Assets.car",
             "Model.momd/Model.mom",
-            "AmplifyUILiveness_FaceLiveness.bundle/face_detection_short_range.mlmodelc/model.espresso.weights",
             "amplifyconfiguration.json",
+            "AmplifyUILiveness_FaceLiveness.bundle/face_detection_short_range.mlmodelc/model.espresso.weights",
             "Fonts/Inter.ttf",
+            "recording.gif",
             "es.lproj/Dictionary.stringsdict",
             "en.lproj/Dictionary.stringsdict",
         )
         for relative in required:
             if not (bundle / relative).is_file():
-                raise ValueError(f"Required resource is missing: {bundle / relative}")
-        if not list((bundle / "Modules" / "BDIdentityVerification.swiftmodule").glob("*.swiftinterface")):
-            raise ValueError(f"Swift module interface is missing: {bundle}")
+                raise ValueError(f"Falta un recurso requerido: {bundle / relative}")
+        module = bundle / "Modules" / "BDIdentityVerification.swiftmodule"
+        for architecture in sorted(expected_slices[key]):
+            suffix = "-simulator" if key[1] == "simulator" else ""
+            interface = module / f"{architecture}-apple-ios{suffix}.swiftinterface"
+            contents = interface.read_text(encoding="utf-8")
+            if "Apple Swift version 6.4" not in contents.splitlines()[1]:
+                raise ValueError(f"Compilador Swift inesperado en {interface}")
+            public_interfaces.append("\n".join(
+                line for line in contents.splitlines()
+                if not line.startswith("// swift-module-flags:")
+            ))
         privacy_manifest = bundle / "PrivacyInfo.xcprivacy"
         if not privacy_manifest.is_file():
-            message = f"PrivacyInfo.xcprivacy is missing from {bundle}"
+            message = f"Falta PrivacyInfo.xcprivacy en {bundle}"
             if require_privacy_manifest:
                 raise ValueError(message)
-            print(f"WARNING: {message}", file=sys.stderr)
+            print(f"ADVERTENCIA: {message}", file=sys.stderr)
 
     if seen != set(expected_slices):
-        raise ValueError("The XCFramework is missing a required platform slice")
+        raise ValueError("Falta una variante de plataforma del XCFramework")
+    if len(set(public_interfaces)) != 1:
+        raise ValueError("La API pública Swift difiere entre dispositivo y simulador")
+    links = subprocess.run(
+        ["otool", "-L", str(FRAMEWORK / "ios-arm64" / "BDIdentityVerification.framework" / "BDIdentityVerification")],
+        check=True, text=True, capture_output=True,
+    ).stdout
+    if "@rpath/BlinkIDUX.framework/BlinkIDUX" not in links:
+        raise ValueError("Falta la dependencia dinámica BlinkIDUX")
     verify_existing_checksums()
 
 
@@ -114,7 +140,7 @@ def make_zip(version: str) -> Path:
         with zipfile.ZipFile(temporary, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
             for path in sorted(FRAMEWORK.rglob("*")):
                 if path.is_symlink():
-                    raise ValueError(f"Symlinks require an explicit packaging policy: {path}")
+                    raise ValueError(f"El enlace simbólico requiere una política de empaquetado: {path}")
                 if not path.is_file():
                     continue
                 relative = path.relative_to(ROOT).as_posix()
@@ -134,7 +160,7 @@ def make_zip(version: str) -> Path:
 def replace_once(text: str, pattern: str, replacement: str) -> str:
     result, count = re.subn(pattern, replacement, text, flags=re.MULTILINE)
     if count != 1:
-        raise ValueError(f"Expected one Package.swift declaration for {pattern}")
+        raise ValueError(f"Se esperaba una declaración única en Package.swift para {pattern}")
     return result
 
 
@@ -152,19 +178,19 @@ def verify_or_update_manifest(version: str, checksum: str, check_only: bool) -> 
     )
     if check_only:
         if current != updated:
-            raise ValueError("Package.swift does not match the XCFramework ZIP; regenerate it")
+            raise ValueError("Package.swift no coincide con el ZIP; regenere el manifiesto")
     else:
         MANIFEST.write_text(updated, encoding="utf-8")
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--version", required=True, help="SemVer release tag, for example 1.2.3 or 1.2.4-rc.1")
-    parser.add_argument("--check", action="store_true", help="Verify Package.swift without changing it")
-    parser.add_argument("--require-privacy-manifest", action="store_true", help="Fail when the XCFramework lacks a privacy manifest")
+    parser.add_argument("--version", required=True, help="Etiqueta SemVer, por ejemplo 1.2.3 o 1.2.4-rc.1")
+    parser.add_argument("--check", action="store_true", help="Verificar Package.swift sin modificarlo")
+    parser.add_argument("--require-privacy-manifest", action="store_true", help="Exigir el manifiesto de privacidad")
     args = parser.parse_args()
     if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+(?:-(?:rc|beta)\.[0-9]+)?", args.version):
-        parser.error("--version must be a SemVer release or RC version")
+        parser.error("--version debe ser una versión SemVer o RC")
 
     inspect_framework(args.version, args.require_privacy_manifest)
     zip_path = make_zip(args.version)
@@ -175,17 +201,17 @@ def main() -> None:
         capture_output=True,
     ).stdout.strip()
     if checksum != sha256(zip_path):
-        raise ValueError("SwiftPM checksum differs from the ZIP SHA-256")
+        raise ValueError("El checksum SwiftPM difiere del SHA-256 del ZIP")
     verify_or_update_manifest(args.version, checksum, args.check)
 
-    print(f"Artifact: {zip_path}")
-    print(f"SwiftPM checksum: {checksum}")
-    print(f"Release URL: {RELEASE_BASE}/{args.version}/{zip_path.name}")
+    print(f"Artefacto: {zip_path}")
+    print(f"Checksum SwiftPM: {checksum}")
+    print(f"URL de release: {RELEASE_BASE}/{args.version}/{zip_path.name}")
 
 
 if __name__ == "__main__":
     try:
         main()
     except (OSError, KeyError, ValueError, subprocess.CalledProcessError, zipfile.BadZipFile) as error:
-        print(f"SPM preparation failed: {error}", file=sys.stderr)
+        print(f"Preparación SPM detenida: {error}", file=sys.stderr)
         sys.exit(1)

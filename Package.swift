@@ -1,10 +1,9 @@
 // swift-tools-version: 6.4
 import PackageDescription
 
-// Regenerate these values from the final XCFramework with
-// `python3 scripts/prepare_spm_release.py` before tagging a release.
+// Versión y checksum del artefacto de esta distribución.
 let artifactVersion = "1.2.3"
-let artifactChecksum = "d4b9f3f28b755547f03be5ffe4510396752deb98c57a7725e144d7e58be27e1b"
+let artifactChecksum = "2e37ae9ef32a3a344c8dee36cf47960ca58719d2c68e24a688613e9b78026a64"
 let artifactURL = "https://github.com/Becomedigital/BecomeDigitalSDKAutoCaptureOCR-iOS/releases/download/\(artifactVersion)/BDIdentityVerification-\(artifactVersion).xcframework.zip"
 
 let package = Package(
@@ -18,8 +17,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/microblink/blinkid-ios.git", exact: "8002.0.2"),
-        .package(url: "https://github.com/aws-amplify/amplify-ui-swift-liveness", from: "1.4.5"),
-        .package(url: "https://github.com/aws-amplify/amplify-swift", from: "2.58.5")
+        .package(url: "https://github.com/aws-amplify/amplify-ui-swift-liveness", exact: "1.4.4"),
+        .package(url: "https://github.com/aws-amplify/amplify-swift", exact: "2.53.3")
     ],
     targets: [
         .binaryTarget(

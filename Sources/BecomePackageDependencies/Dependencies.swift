@@ -1,3 +1,2 @@
-// The library product includes this target so SwiftPM carries the XCFramework's
-// external package products into consuming applications.
+// Este target incorpora las dependencias de integración del producto.
 enum BecomePackageDependencies {}
