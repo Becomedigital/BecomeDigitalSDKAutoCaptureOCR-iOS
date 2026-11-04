@@ -1,5 +1,11 @@
 # Cambios de la SDK
 
+## 3.5.1-rc.2 — 2026-11-04
+
+### Cambios
+
+- Esta versión candidata conserva la API de integración, la configuración pública y los resultados de verificación de 3.5.1-rc.1.
+
 ## 3.5.1-rc.1 — 2026-11-04
 
 ### Novedades

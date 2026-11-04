@@ -1,8 +1,8 @@
 {
-  "agregado": [
-    "Incluye la declaración de privacidad de los datos utilizados durante la verificación, incluida la ubicación cuando se recolecta con autorización."
+  "agregado": [],
+  "cambiado": [
+    "Esta versión candidata conserva la API de integración, la configuración pública y los resultados de verificación de 3.5.1-rc.1."
   ],
-  "cambiado": [],
   "corregido": [],
   "retirado": []
 }
