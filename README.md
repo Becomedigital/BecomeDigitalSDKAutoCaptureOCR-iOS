@@ -133,6 +133,7 @@ La respuesta dispone de `toJson()` si necesitas representarla como texto. Los er
 - [Demo de integración para iOS](Demo/iOSBlinkIDIntegration/README.md)
 - [Instalación con Swift Package Manager, licencia y permisos](INSTALACION.md)
 - [Migración desde la integración por archivo](MIGRACION.md)
+- [Dependencias compartidas y compatibilidad de versiones](DEPENDENCIAS.md)
 - [Inicialización con JWT y firma deprecada](AUTENTICACION.md)
 - [Localización y claves admitidas](LOCALIZACION.md)
 - [Resultados y errores](ERRORES.md)

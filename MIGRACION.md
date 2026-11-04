@@ -6,7 +6,7 @@ Estos pasos reemplazan la integración de BecomeDigital por archivo por el paque
 
 1. Identifica el target que inicia la verificación y las referencias que agregaste para la integración anterior.
 2. Retira su copia local de `BDIdentityVerification.xcframework` y las entradas correspondientes de **Link Binary With Libraries**, **Embed Frameworks** y **Frameworks, Libraries, and Embedded Content**.
-3. Retira los productos, copias locales y rutas de búsqueda que agregaste exclusivamente para las dependencias de esa integración. Conserva los que tu propia app utilice directamente y revisa su compatibilidad si la resolución presenta un conflicto.
+3. Retira los productos, copias locales y rutas de búsqueda que agregaste exclusivamente para las dependencias de esa integración. Conserva los que tu propia app utilice directamente y compara sus requisitos con la [referencia de dependencias compartidas](DEPENDENCIAS.md).
 4. Conserva `com.become.blinkid.key.txt`, las descripciones de permisos y los archivos de localización de tu aplicación.
 
 ## Agregar el paquete publicado

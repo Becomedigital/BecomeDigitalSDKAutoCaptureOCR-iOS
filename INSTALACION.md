@@ -27,7 +27,7 @@ Agrega BecomeDigital a tu aplicación desde Swift Package Manager (SPM). Xcode d
 4. Selecciona **Add Package** y agrega el producto **`BDIdentityVerification`** al target de tu app.
 5. Espera a que Xcode termine de resolver y descargar el paquete. Comprueba en **Package Dependencies** la versión seleccionada.
 
-SPM obtiene el binario de BecomeDigital y sus dependencias. No necesitas descargar archivos de otras bibliotecas, agregar sus productos ni configurar sus versiones por separado. Mantén las dependencias propias que tu aplicación utilice directamente; si existe un conflicto de resolución, revisa sus requisitos junto con soporte.
+SPM obtiene el binario de BecomeDigital y sus dependencias. No necesitas descargar archivos de otras bibliotecas, agregar sus productos ni configurar sus versiones por separado. Mantén las dependencias propias que tu aplicación utilice directamente. Si tu app ya utiliza paquetes compartidos, compara sus versiones y reglas con la [guía de dependencias y compatibilidad](DEPENDENCIAS.md).
 
 Si tu aplicación ya usa la distribución por archivo, sigue primero la [migración a SPM](MIGRACION.md) para evitar copias duplicadas.
 
