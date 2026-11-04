@@ -2,9 +2,10 @@
 
 ## 3.5.1-rc.2 — 2026-11-04
 
-### Cambios
+### Correcciones
 
-- Esta versión candidata conserva la API de integración, la configuración pública y los resultados de verificación de 3.5.1-rc.1.
+- Corrige la alineación de la cámara y los controles al girar el dispositivo durante la captura del documento.
+- Mantiene alineadas la vista previa y la fotografía en la alternativa de captura manual.
 
 ## 3.5.1-rc.1 — 2026-11-04
 

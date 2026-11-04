@@ -4,11 +4,11 @@
   "candidate": "",
   "functional_validation": false,
   "inputs": {
-    "BDIdentityVerification.xcframework": "c03419a23a65f62b1fa237e9076b88d7cc6c8922310288db770c203dbe4fed2a",
-    "integration_sha256": "6e461d924f352be2db0322e828344cd0ebb31568ce70c501cbafcfe30a7c94bf"
+    "BDIdentityVerification.xcframework": "38ecbb28a66b40491dfb0fd142697c1b1c9df97a946e16a42e1a9f1809f67819",
+    "integration_sha256": "ac30f6d49325fcaab96e2e1ec37f2125d77de27f03d2fca7faaa8409b4eaa38a"
   },
   "payload_sha256": [
-    "3ef77ab0b57bc73c961617eaead516f3717a6a09f38bf3845831d4b92a27bfdc"
+    "d96a8f2c33a5d71daaa42269b4830d4baceb02db3b9445ffc70a38d3c02590b9"
   ],
-  "notes_sha256": "3f573bf179ddf3d7a110f080fe9673c432de85d4e83b0b2a12c07d21b0a1365d"
+  "notes_sha256": "4568b14a4ab733ae4165339b3ae7c1f0ebaa81bf63dce0859830686dd260cef1"
 }

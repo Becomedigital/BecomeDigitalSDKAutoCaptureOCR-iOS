@@ -48,6 +48,21 @@ Agrega al `Info.plist` una descripción de uso de la cámara:
 
 Si tu integración utiliza ubicación, agrega también `NSLocationWhenInUseUsageDescription` con una descripción de su finalidad. Revisa el acceso a la cámara antes de volver a intentar una verificación cuando el usuario haya denegado el permiso.
 
+## Orientaciones de la aplicación
+
+Declara en `Info.plist` las orientaciones que admite tu app mediante `UISupportedInterfaceOrientations`. Para una aplicación que permite vertical y horizontal, esta es una configuración de ejemplo:
+
+```xml
+<key>UISupportedInterfaceOrientations</key>
+<array>
+    <string>UIInterfaceOrientationPortrait</string>
+    <string>UIInterfaceOrientationLandscapeLeft</string>
+    <string>UIInterfaceOrientationLandscapeRight</string>
+</array>
+```
+
+Conserva las orientaciones permitidas por tu aplicación. Si el target usa `UISupportedInterfaceOrientations~ipad`, revisa también su configuración. La captura sigue la orientación de la escena que la presenta. En un dispositivo físico, comprueba ambos giros, el regreso a vertical, el bloqueo de rotación y la alternativa de captura manual.
+
 ## Comprobar la integración
 
 1. Confirma que el producto `BDIdentityVerification` esté asociado al target correcto y que la resolución indique `3.5.1-rc.1`.

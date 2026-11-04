@@ -1,8 +1,9 @@
 {
   "agregado": [],
-  "cambiado": [
-    "Esta versión candidata conserva la API de integración, la configuración pública y los resultados de verificación de 3.5.1-rc.1."
+  "cambiado": [],
+  "corregido": [
+    "Corrige la alineación de la cámara y los controles al girar el dispositivo durante la captura del documento.",
+    "Mantiene alineadas la vista previa y la fotografía en la alternativa de captura manual."
   ],
-  "corregido": [],
   "retirado": []
 }
