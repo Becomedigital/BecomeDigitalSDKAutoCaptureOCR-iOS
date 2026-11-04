@@ -1,11 +1,15 @@
 # Demo de integración para iOS
 
-Esta aplicación utiliza el archivo de la SDK incluido en la raíz de esta distribución y la firma recomendada con JWT. Muestra cómo iniciar la verificación y recibir sus resultados desde una pantalla SwiftUI con un controlador UIKit.
+Este ejemplo integra BecomeDigital con la firma recomendada con JWT e ilustra cómo iniciar la verificación y recibir sus resultados desde una pantalla SwiftUI con un controlador UIKit.
+
+## Usar la distribución publicada
+
+El proyecto de ejemplo conserva una referencia al archivo local incluido en esta distribución. Para consumir la versión publicada, aplica la [migración a SPM](../../MIGRACION.md) en este proyecto y sigue la [guía de instalación](../../INSTALACION.md). Selecciona exactamente `3.5.1-rc.1`; el gestor resuelve automáticamente las demás dependencias.
 
 ## Preparar el demo
 
 1. Abre [iOSBlinkIDIntegration.xcodeproj](iOSBlinkIDIntegration.xcodeproj) en Xcode y selecciona el target `iOSBlinkIDIntegration`.
-2. Selecciona tu equipo de firma y el identificador de aplicación autorizado para tu licencia BlinkID.
+2. Selecciona tu equipo de firma y el identificador de aplicación autorizado para la licencia de tu app.
 3. Copia `App/DemoConfiguration.example.plist` como `App/DemoConfiguration.plist`. Completa `jwt` con el token de creación (`verification:create`), `verificationResultsJwt` con el token de consulta (`verification:get`) y `contractId`; configura `debugLogsEnabled` según necesites diagnóstico.
 4. Agrega la licencia de tu app como `App/com.become.blinkid.key.txt`.
 5. Compila y ejecuta la app en un dispositivo físico con iOS 16 o posterior. Ingresa un ID de usuario y toca **Iniciar verificación**.

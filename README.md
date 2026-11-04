@@ -1,16 +1,24 @@
-# SDK de BecomeDigital AutoCapture OCR para iOS
+# BecomeDigital AutoCapture OCR para iOS
 
-Integra la verificación de identidad en tu aplicación: onboarding, autenticación, captura automática de documentos con reconocimiento OCR y alternativa manual, y validación facial. Esta distribución incluye `BDIdentityVerification.xcframework`.
+Integra la verificación de identidad en tu aplicación: onboarding, autenticación, captura automática de documentos con reconocimiento OCR y alternativa manual, y validación facial.
 
 ## Antes de comenzar
 
 - Usa iOS 16.0 o posterior y Xcode compatible con Swift 6.4.
 - Obtén un JWT vigente desde el backend de tu integración y solicita el identificador del contrato y la licencia para tu app.
-- Sigue la [guía de instalación](INSTALACION.md) para agregar el archivo de la SDK, sus dependencias y los permisos necesarios.
+- Sigue la [guía de instalación](INSTALACION.md) para agregar BecomeDigital mediante Swift Package Manager, con una versión exacta, y configurar los permisos de tu app.
 - Revisa el [demo de integración para iOS](Demo/iOSBlinkIDIntegration/README.md) para ver un ejemplo completo con SwiftUI y UIKit.
 - Realiza las pruebas de cámara, documento y validación facial en un dispositivo físico.
 
 Esta entrega corresponde a producción. La configuración de compilación de tu app no cambia ese ambiente. Si necesitas otra entrega, solicítala a BecomeDigital con una licencia válida para el identificador de esa aplicación.
+
+## Instalación con versión exacta
+
+En Xcode, selecciona **File > Add Package Dependencies**, agrega `https://github.com/Becomedigital/BecomeDigitalSDKAutoCaptureOCR-iOS.git`, elige **Exact Version** con `3.5.1-rc.1` y asocia el producto `BDIdentityVerification` al target de tu app.
+
+SPM descarga BecomeDigital y resuelve automáticamente las dependencias del paquete. Completa la [licencia de la app, los permisos y la primera verificación](INSTALACION.md). Si vienes de la entrega por archivo, sigue la [guía de migración](MIGRACION.md).
+
+`3.5.1-rc.1` es la versión candidata publicada que utiliza esta guía. Usa una versión exacta para tu integración.
 
 ## Iniciar una verificación
 
@@ -123,13 +131,14 @@ La respuesta dispone de `toJson()` si necesitas representarla como texto. Los er
 ## Guías de integración
 
 - [Demo de integración para iOS](Demo/iOSBlinkIDIntegration/README.md)
-- [Instalación, dependencias, licencia y permisos](INSTALACION.md)
+- [Instalación con Swift Package Manager, licencia y permisos](INSTALACION.md)
+- [Migración desde la integración por archivo](MIGRACION.md)
 - [Inicialización con JWT y firma deprecada](AUTENTICACION.md)
 - [Localización y claves admitidas](LOCALIZACION.md)
 - [Resultados y errores](ERRORES.md)
 - [Diagnóstico y soporte](LOGGING.md)
 - [Protección contra capturas de pantalla](SCREEN_CAPTURE_CONFIGURATION.md)
 - [Eventos en segundo plano](CARGAS_SEGUNDO_PLANO.md)
-- [Cambios de la SDK](CHANGELOG.md)
+- [Cambios de BecomeDigital](CHANGELOG.md)
 
 Antes de publicar tu app, comprueba los permisos, la captura de los lados solicitados, los reintentos, la validación facial, los idiomas personalizados, la cancelación y el manejo de resultados.
