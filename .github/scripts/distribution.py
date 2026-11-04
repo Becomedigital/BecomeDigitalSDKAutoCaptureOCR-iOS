@@ -430,6 +430,18 @@ def optional_gh(endpoint):
     return json.loads(result.stdout)
 
 
+def github_release(repository, value):
+    release = optional_gh(f'repos/{repository}/releases/tags/{value}')
+    if release:
+        return release
+    # La consulta por tag solo encuentra versiones publicadas; los borradores
+    # se recuperan desde el listado autenticado y se consultan por su ID.
+    pages = gh_json(f'repos/{repository}/releases?per_page=100', '--paginate', '--slurp')
+    matches = [release for page in pages for release in page if release['tag_name'] == value]
+    require(len(matches) <= 1, 'Existe más de una publicación para esta versión; revisa los borradores antes de continuar.')
+    return gh_json(f"repos/{repository}/releases/{matches[0]['id']}") if matches else None
+
+
 def publish_github(config, value, output):
     record, _ = release_record(config, value)
     repository = config['repository']
@@ -442,16 +454,19 @@ def publish_github(config, value, output):
                 break
             target = gh_json(f"repos/{repository}/git/tags/{target['sha']}")['object']
         require(target['type'] == 'commit' and target['sha'] == sha, 'La etiqueta existente apunta a otro commit.')
-    release = optional_gh(f'repos/{repository}/releases/tags/{value}')
+    release = github_release(repository, value)
     paths = [p for p in sorted(output.iterdir()) if p.is_file() and p.name not in ('central-deployment.json',)]
     require({'artefactos.json','SHA256SUMS','NOTAS.md'}.issubset(p.name for p in paths), 'El paquete de publicación está incompleto.')
     if release and not release['draft']:
         require(release['prerelease'] == ('-rc.' in value), 'El canal de la versión existente difiere.')
         require(tag, 'La publicación existente no tiene etiqueta verificable.')
     if not release:
-        run('gh','release','create',value,'--repo',repository,'--draft','--target',sha,'--title',value,
-            '--notes-file',str(output / 'NOTAS.md'))
-        release = gh_json(f'repos/{repository}/releases/tags/{value}')
+        release = gh_json(f'repos/{repository}/releases', '--method', 'POST', data={
+            'tag_name': value, 'target_commitish': sha, 'name': value,
+            'body': (output / 'NOTAS.md').read_text(encoding='utf-8'),
+            'draft': True, 'prerelease': '-rc.' in value, 'make_latest': 'false'})
+    if release['draft']:
+        require(release['target_commitish'] == sha, 'El borrador apunta a otro commit; no se publica ni se modifica.')
     assets = {asset['name']:asset for asset in release['assets']}
     require(set(assets).issubset(path.name for path in paths), 'El borrador contiene archivos no previstos; revísalo antes de continuar.')
     for path in paths:
@@ -526,6 +541,15 @@ def central_request(path, data=None, content_type=None):
         raise Invalid(f'Sonatype rechazó la operación: HTTP {exc.code}. Revisa el token y los metadatos.') from None
 
 
+def central_validation_failure(status, deployment):
+    errors = json.dumps(status.get('errors', {}), ensure_ascii=False)
+    for name in ('MAVEN_CENTRAL_USERNAME', 'MAVEN_CENTRAL_PASSWORD', 'SIGNING_KEY', 'SIGNING_PASSWORD'):
+        secret = os.environ.get(name)
+        if secret:
+            errors = errors.replace(secret, '[redactado]')
+    return f'Sonatype no validó la publicación {deployment}. Errores de validación: {errors[:6000]}'
+
+
 def publish_central(output):
     folders = [p.parent for p in (output / 'maven').rglob('*.pom')]
     require(len(folders) == 1, 'Debe existir una sola publicación Maven en el paquete.')
@@ -574,7 +598,7 @@ def publish_central(output):
         state = status['deploymentState']
         if state == 'PUBLISHED':
             return
-        require(state != 'FAILED', 'Sonatype no validó la publicación. Revisa el despliegue en Central Portal.')
+        require(state != 'FAILED', central_validation_failure(status, deployment))
         if state == 'VALIDATED' and not publish_requested:
             central_request('deployment/' + deployment, b'')
             publish_requested = True
