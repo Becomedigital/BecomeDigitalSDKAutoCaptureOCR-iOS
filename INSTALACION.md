@@ -1,35 +1,37 @@
-# Instalación de la SDK para iOS
+# Instalación para iOS con Swift Package Manager
+
+Agrega BecomeDigital a tu aplicación desde Swift Package Manager (SPM). Xcode descarga el paquete y resuelve automáticamente las dependencias declaradas; solo debes agregar el producto de BecomeDigital al target de tu app.
 
 ## Requisitos
 
 | Requisito | Valor |
 | --- | --- |
+| Versión publicada usada en esta guía | `3.5.1-rc.1` |
 | iOS mínimo | 16.0 |
-| Framework de BecomeDigital | 1.2.3 |
 | Herramientas | Xcode compatible con Swift 6.4 |
-| Dispositivos | arm64 |
-| Simulador | arm64 y x86_64 |
+| Dispositivos | `arm64` |
+| Simulador | `arm64` y `x86_64` |
 
-Las funciones de cámara y verificación requieren un dispositivo físico. Usa la licencia emitida para el **Bundle Identifier** de tu app.
+`3.5.1-rc.1` es una versión candidata para evaluación. La versión interna del framework es `3.5.1`. Las funciones de cámara, documento y validación facial se prueban en un dispositivo físico con una licencia emitida para el **Bundle Identifier** de tu app.
 
-## Agregar la SDK y sus dependencias
+## Agregar el paquete
 
-1. Descarga `BDIdentityVerification.xcframework` de esta distribución y agrégalo al target de tu app.
-2. En **Frameworks, Libraries, and Embedded Content**, selecciona **Embed & Sign**.
-3. En **File > Add Package Dependencies**, agrega los siguientes paquetes con **Exact Version** y vincula los productos indicados al target:
+1. Abre el proyecto de tu aplicación en Xcode.
+2. Selecciona **File > Add Package Dependencies** e ingresa esta URL:
 
-| URL del paquete | Versión | Producto |
-| --- | --- | --- |
-| `https://github.com/aws-amplify/amplify-swift` | 2.53.3 | `Amplify` |
-| `https://github.com/aws-amplify/amplify-ui-swift-liveness` | 1.4.4 | `FaceLiveness` |
-| `https://github.com/microblink/blinkid-ios` | 8002.0.2 | `BlinkIDUX` |
+   ```text
+   https://github.com/Becomedigital/BecomeDigitalSDKAutoCaptureOCR-iOS.git
+   ```
 
-4. Integra y firma `BDIdentityVerification.framework`, `BlinkID.framework` y `BlinkIDUX.framework`. Deben quedar incluidos en la app final. Swift Package Manager resuelve las demás dependencias de los paquetes.
-5. Si reemplazas otra distribución de BecomeDigital, retira sus archivos y dependencias de captura anteriores antes de agregar los de esta entrega. Evita agregar dos copias del mismo framework.
+3. En **Dependency Rule**, selecciona **Exact Version** y escribe `3.5.1-rc.1`.
+4. Selecciona **Add Package** y agrega el producto **`BDIdentityVerification`** al target de tu app.
+5. Espera a que Xcode termine de resolver y descargar el paquete. Comprueba en **Package Dependencies** la versión seleccionada.
 
-Incluye las dependencias indicadas aunque tu contrato no muestre la captura facial. Si tu app ya utiliza Amplify, mantén versiones compatibles con esta entrega. El módulo que importa tu código es `BDIdentityVerification`.
+SPM obtiene el binario de BecomeDigital y sus dependencias. No necesitas descargar archivos de otras bibliotecas, agregar sus productos ni configurar sus versiones por separado. Mantén las dependencias propias que tu aplicación utilice directamente; si existe un conflicto de resolución, revisa sus requisitos junto con soporte.
 
-## Agregar la licencia
+Si tu aplicación ya usa la distribución por archivo, sigue primero la [migración a SPM](MIGRACION.md) para evitar copias duplicadas.
+
+## Agregar la licencia de la app
 
 Solicita a BecomeDigital la licencia correspondiente a tu app y agrégala con el nombre **`com.become.blinkid.key.txt`**. Marca su pertenencia al target de la app e inclúyela en **Copy Bundle Resources**.
 
@@ -44,10 +46,29 @@ Agrega al `Info.plist` una descripción de uso de la cámara:
 <string>Necesitamos acceso a la cámara para verificar tu identidad.</string>
 ```
 
-Si tu integración utiliza ubicación, agrega también `NSLocationWhenInUseUsageDescription`. Revisa el acceso a la cámara antes de volver a intentar una verificación cuando el usuario haya denegado el permiso.
+Si tu integración utiliza ubicación, agrega también `NSLocationWhenInUseUsageDescription` con una descripción de su finalidad. Revisa el acceso a la cámara antes de volver a intentar una verificación cuando el usuario haya denegado el permiso.
 
-## Continuar con la integración
+## Comprobar la integración
 
-Sigue el [ejemplo de inicialización](README.md#iniciar-una-verificación). Para adaptar instrucciones de captura o prueba de vida, consulta las [claves de localización](LOCALIZACION.md).
+1. Confirma que el producto `BDIdentityVerification` esté asociado al target correcto y que la resolución indique `3.5.1-rc.1`.
+2. Importa el módulo en tu aplicación:
 
-El [demo de integración para iOS](Demo/iOSBlinkIDIntegration/README.md) muestra estos pasos en una aplicación con pantalla SwiftUI, ciclo de vida de escenas UIKit y manejo de respuestas de la SDK.
+   ```swift
+   import BDIdentityVerification
+   ```
+
+3. Compila para un dispositivo iOS y, cuando lo necesites, para un simulador compatible. Xcode gestiona el enlace y la inclusión de las dependencias del paquete.
+4. Sigue el [ejemplo de inicialización](README.md#iniciar-una-verificación) con los JWT y el contrato de tu integración.
+5. En un dispositivo físico, verifica los permisos, la captura documental, la validación facial, la cancelación y los resultados. Usa también la configuración de publicación de tu app.
+
+## Resolver problemas de instalación
+
+| Situación | Qué revisar |
+| --- | --- |
+| Xcode no resuelve el paquete | Usa la URL completa y la versión exacta publicada; revisa la conexión y el acceso a las descargas del paquete. |
+| Herramientas Swift incompatibles | Selecciona una instalación de Xcode compatible con Swift 6.4. |
+| Módulo duplicado o error de enlace | Retira las referencias locales anteriores siguiendo la [guía de migración](MIGRACION.md) y conserva una sola integración de BecomeDigital. |
+| No se encuentra `BDIdentityVerification` | Asocia el producto del paquete al target que contiene el código que lo importa. |
+| La verificación no acepta la licencia | Comprueba el nombre del archivo, su inclusión en la app y el Bundle Identifier autorizado. |
+
+Consulta la [localización](LOCALIZACION.md), el [manejo de errores](ERRORES.md) y el [demo de integración](Demo/iOSBlinkIDIntegration/README.md) para continuar.

@@ -8,10 +8,10 @@ Los archivos locales son opcionales para las instrucciones de captura, prueba de
 
 ## Claves admitidas
 
-| Componente | Versión de esta distribución | Prefijo de las claves |
-| --- | --- | --- |
-| BlinkID UX | 8002.0.2 | `mb_*` |
-| Amplify Face Liveness | 1.4.4 | `amplify_ui_liveness_*` |
+| Función | Prefijo de las claves |
+| --- | --- |
+| Captura documental | `mb_*` |
+| Validación facial | `amplify_ui_liveness_*` |
 
 Usa la [plantilla en español](Localizable.strings) para consultar los nombres exactos y sus valores de referencia. Los nombres difieren entre plataformas y distribuciones; usa solo las claves que corresponden a esta entrega.
 
