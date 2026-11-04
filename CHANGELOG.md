@@ -1,5 +1,11 @@
 # Cambios de la SDK
 
+## 3.5.1-rc.1 — 2026-11-04
+
+### Novedades
+
+- Incluye la declaración de privacidad de los datos utilizados durante la verificación, incluida la ubicación cuando se recolecta con autorización.
+
 ## Actualización de autenticación — 29 de octubre de 2026
 
 - Agrega la firma de inicialización con JWT obtenido por la integración.
