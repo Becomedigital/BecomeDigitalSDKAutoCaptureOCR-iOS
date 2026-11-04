@@ -2,7 +2,7 @@
 import PackageDescription
 
 // Versión y checksum del artefacto de esta distribución.
-let artifactVersion = "3.5.1-rc.1"
+let artifactVersion = "3.5.1-rc.2"
 let artifactChecksum = "3ef77ab0b57bc73c961617eaead516f3717a6a09f38bf3845831d4b92a27bfdc"
 let artifactURL = "https://github.com/Becomedigital/BecomeDigitalSDKAutoCaptureOCR-iOS/releases/download/\(artifactVersion)/BDIdentityVerification-\(artifactVersion).xcframework.zip"
 
