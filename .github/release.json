@@ -1,14 +1,14 @@
 {
-  "version": "3.5.1-rc.2",
-  "date": "2026-11-04",
+  "version": "3.5.1-rc.3",
+  "date": "2026-11-05",
   "candidate": "",
   "functional_validation": false,
   "inputs": {
-    "BDIdentityVerification.xcframework": "38ecbb28a66b40491dfb0fd142697c1b1c9df97a946e16a42e1a9f1809f67819",
-    "integration_sha256": "ac30f6d49325fcaab96e2e1ec37f2125d77de27f03d2fca7faaa8409b4eaa38a"
+    "BDIdentityVerification.xcframework": "506c802a0828ba077a6a324cda66a41aaf15faab2c884c9475b8e10794b417ba",
+    "integration_sha256": "6c7ed87ab531745821f85ecf2c39f691f4a933e8707207f8dd7b983ef07c0ee8"
   },
   "payload_sha256": [
-    "d96a8f2c33a5d71daaa42269b4830d4baceb02db3b9445ffc70a38d3c02590b9"
+    "24864b0ee8184c5d4e76d46b9a1b0e9e2672ab8a099039432f636ecb0b6a8ef2"
   ],
-  "notes_sha256": "4568b14a4ab733ae4165339b3ae7c1f0ebaa81bf63dce0859830686dd260cef1"
+  "notes_sha256": "215a8840c4d3c49262d2be4671f8d60dc055a9dbd59b41d5307975100f3d01af"
 }

@@ -1,5 +1,15 @@
 # Cambios de la SDK
 
+## 3.5.1-rc.3 — 2026-11-05
+
+### Cambios
+
+- Actualiza las ilustraciones de introducción de documento y rostro, conservando su transparencia y adaptación a los modos claro y oscuro.
+
+### Correcciones
+
+- Evita los recuadros blancos exteriores en las ilustraciones de introducción al usar modo oscuro.
+
 ## 3.5.1-rc.2 — 2026-11-04
 
 ### Correcciones
