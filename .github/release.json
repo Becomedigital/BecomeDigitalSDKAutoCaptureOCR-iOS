@@ -1,8 +1,8 @@
 {
-  "version": "3.5.1-rc.3",
+  "version": "3.5.1",
   "date": "2026-11-05",
-  "candidate": "",
-  "functional_validation": false,
+  "candidate": "3.5.1-rc.3",
+  "functional_validation": true,
   "inputs": {
     "BDIdentityVerification.xcframework": "506c802a0828ba077a6a324cda66a41aaf15faab2c884c9475b8e10794b417ba",
     "integration_sha256": "6c7ed87ab531745821f85ecf2c39f691f4a933e8707207f8dd7b983ef07c0ee8"
@@ -10,5 +10,5 @@
   "payload_sha256": [
     "24864b0ee8184c5d4e76d46b9a1b0e9e2672ab8a099039432f636ecb0b6a8ef2"
   ],
-  "notes_sha256": "215a8840c4d3c49262d2be4671f8d60dc055a9dbd59b41d5307975100f3d01af"
+  "notes_sha256": "97489e20d4a3f83ceda94d79f334d952ad44ec9c33bac6e10f3b8bccbdaa4526"
 }
