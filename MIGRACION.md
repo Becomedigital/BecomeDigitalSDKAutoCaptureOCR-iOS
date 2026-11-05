@@ -11,7 +11,7 @@ Estos pasos reemplazan la integración de BecomeDigital por archivo por el paque
 
 ## Agregar el paquete publicado
 
-Sigue la [instalación con SPM](INSTALACION.md#agregar-el-paquete): agrega el repositorio de BecomeDigital, selecciona **Exact Version** con `3.5.1-rc.2` y asocia únicamente el producto `BDIdentityVerification` al target de tu app. SPM resuelve automáticamente las demás dependencias.
+Sigue la [instalación con SPM](INSTALACION.md#agregar-el-paquete): agrega el repositorio de BecomeDigital, selecciona **Exact Version** con `3.5.1` y asocia únicamente el producto `BDIdentityVerification` al target de tu app. SPM resuelve automáticamente las demás dependencias.
 
 El módulo importado sigue siendo `BDIdentityVerification`. Continúa con la [inicialización y configuración pública](README.md#iniciar-una-verificación). Si además vienes de una versión con firma de credenciales, consulta por separado la [migración a JWT](AUTENTICACION.md).
 

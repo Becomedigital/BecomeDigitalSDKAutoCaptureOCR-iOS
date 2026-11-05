@@ -6,13 +6,13 @@ Agrega BecomeDigital a tu aplicación desde Swift Package Manager (SPM). Xcode d
 
 | Requisito | Valor |
 | --- | --- |
-| Versión publicada usada en esta guía | `3.5.1-rc.2` |
+| Versión publicada usada en esta guía | `3.5.1` |
 | iOS mínimo | 16.0 |
 | Herramientas | Xcode compatible con Swift 6.4 |
 | Dispositivos | `arm64` |
 | Simulador | `arm64` y `x86_64` |
 
-`3.5.1-rc.2` es una versión candidata para evaluación. La versión interna del framework es `3.5.1`. Las funciones de cámara, documento y validación facial se prueban en un dispositivo físico con una licencia emitida para el **Bundle Identifier** de tu app.
+`3.5.1` es la versión oficial publicada. Las funciones de cámara, documento y validación facial se prueban en un dispositivo físico con una licencia emitida para el **Bundle Identifier** de tu app.
 
 ## Agregar el paquete
 
@@ -23,7 +23,7 @@ Agrega BecomeDigital a tu aplicación desde Swift Package Manager (SPM). Xcode d
    https://github.com/Becomedigital/BecomeDigitalSDKAutoCaptureOCR-iOS.git
    ```
 
-3. En **Dependency Rule**, selecciona **Exact Version** y escribe `3.5.1-rc.2`.
+3. En **Dependency Rule**, selecciona **Exact Version** y escribe `3.5.1`.
 4. Selecciona **Add Package** y agrega el producto **`BDIdentityVerification`** al target de tu app.
 5. Espera a que Xcode termine de resolver y descargar el paquete. Comprueba en **Package Dependencies** la versión seleccionada.
 
@@ -65,7 +65,7 @@ Conserva las orientaciones permitidas por tu aplicación. Si el target usa `UISu
 
 ## Comprobar la integración
 
-1. Confirma que el producto `BDIdentityVerification` esté asociado al target correcto y que la resolución indique `3.5.1-rc.2`.
+1. Confirma que el producto `BDIdentityVerification` esté asociado al target correcto y que la resolución indique `3.5.1`.
 2. Importa el módulo en tu aplicación:
 
    ```swift
