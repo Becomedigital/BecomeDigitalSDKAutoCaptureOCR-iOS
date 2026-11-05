@@ -1,6 +1,6 @@
 # Dependencias compartidas y compatibilidad en iOS
 
-Esta guía corresponde a la integración de BecomeDigital `3.5.1-rc.1` mediante Swift Package Manager (SPM). SPM descarga automáticamente sus dependencias; el inventario permite compararlas con paquetes que tu aplicación ya utiliza.
+Esta guía corresponde a la integración de BecomeDigital `3.5.1-rc.2` mediante Swift Package Manager (SPM). SPM descarga automáticamente sus dependencias; el inventario permite compararlas con paquetes que tu aplicación ya utiliza.
 
 ## Qué sucede cuando la app comparte un paquete
 
@@ -10,7 +10,7 @@ La descarga automática no asegura compatibilidad con cualquier combinación de 
 
 ## Versiones de referencia
 
-Los siguientes paquetes de uso general están presentes en la resolución de referencia utilizada para compilar la integración de esta entrega. Son versiones observadas, no instrucciones para agregarlos manualmente ni un listado de todos los componentes del producto. Estar en la resolución no implica que todos sus productos se enlacen a la app; eso depende de los productos y targets utilizados.
+Los siguientes paquetes de uso general están presentes en la resolución de referencia del paquete público de esta entrega. Son versiones observadas, no instrucciones para agregarlos manualmente ni un listado de todos los componentes del producto. Estar en la resolución no implica que todos sus productos se enlacen a la app; eso depende de los productos y targets utilizados.
 
 | Identidad del paquete | Versión resuelta de referencia |
 | --- | --- |
@@ -54,10 +54,10 @@ Los demás valores de la tabla son el resultado observado. El intervalo admisibl
 
 | Dato | Alcance |
 | --- | --- |
-| Versión resuelta de referencia | La indicada para cada paquete; la integración se compiló con ese conjunto. |
+| Versión resuelta de referencia | La indicada para cada paquete en la resolución de referencia. |
 | Mínimo funcional compatible | No establecido para paquetes con requisitos flexibles. |
 | Máximo funcional compatible | No establecido. |
-| Versión de BecomeDigital | Fija `3.5.1-rc.1` como se indica en la [instalación](INSTALACION.md). |
+| Versión de BecomeDigital | Fija `3.5.1-rc.2` como se indica en la [instalación](INSTALACION.md). |
 
 Una resolución válida confirma que los requisitos declarados se pueden satisfacer. No certifica por sí sola la compilación ni el comportamiento de todas las bibliotecas de tu aplicación. Tampoco permite concluir que una versión anterior o posterior sea compatible o esté deprecada.
 
