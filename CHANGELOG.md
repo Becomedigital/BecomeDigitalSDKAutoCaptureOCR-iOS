@@ -1,5 +1,22 @@
 # Cambios de la SDK
 
+## 3.5.1 — 2026-11-05
+
+### Novedades
+
+- Permite integrar la verificación de identidad mediante Swift Package Manager con una versión exacta.
+- Incluye la declaración de privacidad de los datos utilizados durante la verificación, incluida la ubicación cuando se recolecta con autorización.
+
+### Cambios
+
+- Actualiza las ilustraciones de introducción de documento y rostro, conservando su transparencia y adaptación a los modos claro y oscuro.
+
+### Correcciones
+
+- Corrige la alineación de la cámara y los controles al girar el dispositivo durante la captura del documento.
+- Mantiene alineadas la vista previa y la fotografía en la alternativa de captura manual.
+- Evita los recuadros blancos exteriores en las ilustraciones de introducción al usar modo oscuro.
+
 ## 3.5.1-rc.3 — 2026-11-05
 
 ### Cambios
