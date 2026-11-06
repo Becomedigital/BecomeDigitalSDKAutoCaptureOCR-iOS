@@ -1,5 +1,16 @@
 # Cambios de la SDK
 
+## 5.3.2-rc.1 — 2026-11-05
+
+### Cambios
+
+- La revisión del documento muestra una cara a la vez y permite alternar entre las imágenes conservando sus proporciones.
+
+### Correcciones
+
+- Evita que las imágenes del documento desborden el espacio disponible durante la revisión.
+- Solicita repetir la captura automática cuando falta la imagen necesaria para revisar el documento.
+
 ## 3.5.1 — 2026-11-05
 
 ### Novedades

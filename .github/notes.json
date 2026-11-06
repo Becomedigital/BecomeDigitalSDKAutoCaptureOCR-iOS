@@ -1,15 +1,11 @@
 {
-  "agregado": [
-    "Permite integrar la verificación de identidad mediante Swift Package Manager con una versión exacta.",
-    "Incluye la declaración de privacidad de los datos utilizados durante la verificación, incluida la ubicación cuando se recolecta con autorización."
-  ],
+  "agregado": [],
   "cambiado": [
-    "Actualiza las ilustraciones de introducción de documento y rostro, conservando su transparencia y adaptación a los modos claro y oscuro."
+    "La revisión del documento muestra una cara a la vez y permite alternar entre las imágenes conservando sus proporciones."
   ],
   "corregido": [
-    "Corrige la alineación de la cámara y los controles al girar el dispositivo durante la captura del documento.",
-    "Mantiene alineadas la vista previa y la fotografía en la alternativa de captura manual.",
-    "Evita los recuadros blancos exteriores en las ilustraciones de introducción al usar modo oscuro."
+    "Evita que las imágenes del documento desborden el espacio disponible durante la revisión.",
+    "Solicita repetir la captura automática cuando falta la imagen necesaria para revisar el documento."
   ],
   "retirado": []
 }
