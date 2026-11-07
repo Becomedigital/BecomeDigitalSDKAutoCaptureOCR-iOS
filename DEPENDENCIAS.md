@@ -1,6 +1,6 @@
 # Dependencias compartidas y compatibilidad en iOS
 
-Esta guía corresponde a la integración de BecomeDigital `3.5.1` mediante Swift Package Manager (SPM). SPM descarga automáticamente sus dependencias; el inventario permite compararlas con paquetes que tu aplicación ya utiliza.
+Esta guía corresponde a la integración de BecomeDigital `5.3.2` mediante Swift Package Manager (SPM). SPM descarga automáticamente sus dependencias; el inventario permite compararlas con paquetes que tu aplicación ya utiliza.
 
 ## Qué sucede cuando la app comparte un paquete
 
@@ -27,7 +27,7 @@ Los siguientes paquetes de uso general están presentes en la resolución de ref
 | `swift-atomics` | `1.3.1` |
 | `swift-certificates` | `1.21.1` |
 | `swift-collections` | `1.7.5` |
-| `swift-configuration` | `1.4.0` |
+| `swift-configuration` | `1.5.0` |
 | `swift-crypto` | `5.1.1` |
 | `swift-distributed-tracing` | `1.7.4` |
 | `swift-http-structured-headers` | `1.7.0` |
@@ -57,7 +57,7 @@ Los demás valores de la tabla son el resultado observado. El intervalo admisibl
 | Versión resuelta de referencia | La indicada para cada paquete en la resolución de referencia. |
 | Mínimo funcional compatible | No establecido para paquetes con requisitos flexibles. |
 | Máximo funcional compatible | No establecido. |
-| Versión de BecomeDigital | Fija `3.5.1` como se indica en la [instalación](INSTALACION.md). |
+| Versión de BecomeDigital | Fija `5.3.2` como se indica en la [instalación](INSTALACION.md). |
 
 Una resolución válida confirma que los requisitos declarados se pueden satisfacer. No certifica por sí sola la compilación ni el comportamiento de todas las bibliotecas de tu aplicación. Tampoco permite concluir que una versión anterior o posterior sea compatible o esté deprecada.
 
