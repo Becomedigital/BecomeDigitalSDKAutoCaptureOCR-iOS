@@ -14,11 +14,11 @@ Esta entrega corresponde a producción. La configuración de compilación de tu 
 
 ## Instalación con versión exacta
 
-En Xcode, selecciona **File > Add Package Dependencies**, agrega `https://github.com/Becomedigital/BecomeDigitalSDKAutoCaptureOCR-iOS.git`, elige **Exact Version** con `3.5.1` y asocia el producto `BDIdentityVerification` al target de tu app.
+En Xcode, selecciona **File > Add Package Dependencies**, agrega `https://github.com/Becomedigital/BecomeDigitalSDKAutoCaptureOCR-iOS.git`, elige **Exact Version** con `5.3.2` y asocia el producto `BDIdentityVerification` al target de tu app.
 
 SPM descarga BecomeDigital y resuelve automáticamente las dependencias del paquete. Completa la [licencia de la app, los permisos y la primera verificación](INSTALACION.md). Si vienes de la entrega por archivo, sigue la [guía de migración](MIGRACION.md).
 
-`3.5.1` es la versión oficial publicada. Consulta las [notas y descargas de esta versión](https://github.com/Becomedigital/BecomeDigitalSDKAutoCaptureOCR-iOS/releases/tag/3.5.1) y usa una versión exacta para tu integración.
+`5.3.2` es la versión oficial publicada. Consulta las [notas y descargas de esta versión](https://github.com/Becomedigital/BecomeDigitalSDKAutoCaptureOCR-iOS/releases/tag/5.3.2) y usa una versión exacta para tu integración.
 
 ## Iniciar una verificación
 

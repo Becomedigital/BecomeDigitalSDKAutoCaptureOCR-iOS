@@ -4,7 +4,7 @@ Este ejemplo integra BecomeDigital con la firma recomendada con JWT e ilustra c�
 
 ## Usar la distribución publicada
 
-El proyecto de ejemplo conserva una referencia al archivo local incluido en esta distribución. Para consumir la versión publicada, aplica la [migración a SPM](../../MIGRACION.md) en este proyecto y sigue la [guía de instalación](../../INSTALACION.md). Selecciona exactamente `3.5.1`; el gestor resuelve automáticamente las demás dependencias.
+El proyecto de ejemplo conserva una referencia al archivo local incluido en esta distribución. Para consumir la versión publicada, aplica la [migración a SPM](../../MIGRACION.md) en este proyecto y sigue la [guía de instalación](../../INSTALACION.md). Selecciona exactamente `5.3.2`; el gestor resuelve automáticamente las demás dependencias.
 
 ## Preparar el demo
 
