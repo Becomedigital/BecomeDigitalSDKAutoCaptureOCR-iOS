@@ -143,3 +143,7 @@ La respuesta dispone de `toJson()` si necesitas representarla como texto. Los er
 - [Cambios de BecomeDigital](CHANGELOG.md)
 
 Antes de publicar tu app, comprueba los permisos, la captura de los lados solicitados, los reintentos, la validación facial, los idiomas personalizados, la cancelación y el manejo de resultados.
+
+## Condiciones de uso
+
+Para la versión oficial `5.3.2`, consulta el [acuerdo de licencia propietaria oficial](legal/LICENSE-5.3.2.txt). La integración no tiene un cargo separado por licencia; el acceso y consumo de los servicios se rigen por el contrato correspondiente.
