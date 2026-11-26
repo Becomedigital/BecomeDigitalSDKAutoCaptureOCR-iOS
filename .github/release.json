@@ -1,14 +1,14 @@
 {
-  "version": "5.3.2",
-  "date": "2026-11-06",
-  "candidate": "5.3.2-rc.1",
-  "functional_validation": true,
+  "version": "5.3.3-rc.1",
+  "date": "2026-11-26",
+  "candidate": "",
+  "functional_validation": false,
   "inputs": {
-    "BDIdentityVerification.xcframework": "3972096c37e03ea9d9fb9f8c14f7cc9b1b4d3484446ce80fd9698c81f1deca2c",
-    "integration_sha256": "5e9a8831c7f89322f2de84a289c517f81ddb008214a11c0ea2b9179c1ac28ded"
+    "BDIdentityVerification.xcframework": "201744f66611cfebb96dbd9f0d690d1ed7326826d5c81b31038b27b632faf5aa",
+    "integration_sha256": "53ff167d2b2d71f6d0ff8bd9877917f8a7c789161e42d699ea89ac6dae9acc60"
   },
   "payload_sha256": [
-    "2ffe45e8818242093ebad8ab683ce09f40789a2109a26abbe657575688fed039"
+    "42ddaba71a83c952c9d55e49b515efa7042fdc5b558f0b8eaf4059d5086d9c1c"
   ],
-  "notes_sha256": "c78f48eaa0b3136cca49aab24cd09c070a99846a12976bf6a3564fbd02785ad6"
+  "notes_sha256": "17a6d01b029df3c0f1a180ce53e73302e178ac5feaa55c215a5317a94f4b74ee"
 }

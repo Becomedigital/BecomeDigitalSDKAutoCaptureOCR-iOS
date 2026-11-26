@@ -36,5 +36,9 @@
     "CaptureUX"
   ],
   "repository": "Becomedigital/BecomeDigitalSDKAutoCaptureOCR-iOS",
-  "version_file": "VERSION"
+  "version_file": "VERSION",
+  "source": {
+    "repository": "Becomedigital/iOS_become_sdk",
+    "commit": "455625b45c0d42cf4e3b2394239e22d625c1f1bf"
+  }
 }
