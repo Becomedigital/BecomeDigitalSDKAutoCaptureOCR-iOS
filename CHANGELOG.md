@@ -1,5 +1,11 @@
 # Cambios de la SDK
 
+## 5.3.3-rc.1 — 2026-11-26
+
+### Cambios
+
+- Las imágenes completas del documento conservan las dimensiones de captura y se envían en JPEG de calidad máxima.
+
 ## 5.3.2 — 2026-11-06
 
 ### Cambios
