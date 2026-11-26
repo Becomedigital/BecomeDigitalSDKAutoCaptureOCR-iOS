@@ -1,11 +1,10 @@
 {
-  "agregado": [],
-  "cambiado": [
-    "La revisión del documento muestra una cara a la vez y permite alternar entre las imágenes conservando sus proporciones."
+  "agregado": [
+    "La revisión del documento permite abrir cada imagen en pantalla completa, ampliarla y desplazarse por ella."
   ],
+  "cambiado": [],
   "corregido": [
-    "Evita que las imágenes del documento desborden el espacio disponible durante la revisión.",
-    "Solicita repetir la captura automática cuando falta la imagen necesaria para revisar el documento."
+    "La captura muestra un indicador mientras se inicia la cámara y permite reintentar si falla la preparación."
   ],
   "retirado": []
 }
