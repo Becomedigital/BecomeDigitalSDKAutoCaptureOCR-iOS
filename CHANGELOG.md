@@ -1,5 +1,19 @@
 # Cambios de la SDK
 
+## 5.3.3 — 2026-11-26
+
+### Novedades
+
+- La revisión del documento permite abrir cada imagen en pantalla completa, ampliarla y desplazarse por ella.
+
+### Cambios
+
+- La captura conserva más detalle en las imágenes del documento durante la verificación.
+
+### Correcciones
+
+- La captura muestra un indicador mientras se prepara la cámara y permite reintentar si la preparación falla.
+
 ## 5.3.2 — 2026-11-06
 
 ### Cambios
