@@ -1,5 +1,11 @@
 # Cambios de la SDK
 
+## 5.3.4 — 2026-11-27
+
+### Cambios
+
+- Se restablece el flujo anterior de inicio de la cámara durante la captura de documentos.
+
 ## 5.3.3 — 2026-11-26
 
 ### Novedades

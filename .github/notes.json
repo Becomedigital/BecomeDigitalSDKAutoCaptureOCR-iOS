@@ -1,12 +1,8 @@
 {
-  "agregado": [
-    "La revisión del documento permite abrir cada imagen en pantalla completa, ampliarla y desplazarse por ella."
-  ],
+  "agregado": [],
   "cambiado": [
-    "La captura conserva más detalle en las imágenes del documento durante la verificación."
+    "Se restablece el flujo anterior de inicio de la cámara durante la captura de documentos."
   ],
-  "corregido": [
-    "La captura muestra un indicador mientras se prepara la cámara y permite reintentar si la preparación falla."
-  ],
+  "corregido": [],
   "retirado": []
 }
